@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+
+<!--
+ Ant build file for Jamshed
+ Author Hussein Badakhchani
+ -->
+<project name = "jamshed" default="run" basedir="..">
+    <description>
+        Jamshed, environment prooving by Hussein Badakhchani
+        This file manages Jamshed tasks.
+        When running ant against any task always specify the environment
+        e.g.:  ant -Denvironment=tt04_online_server01 chkcfg
+    </description>
+
+    <!--
+     Static directories.
+     -->
+    <property name="bin.dir" location="${basedir}/bin"/>
+    <property name="lib.dir" location="${basedir}/lib"/>
+    <property name="log.dir" location="${basedir}/logs"/>
+    <property name="etc.dir" location="${basedir}/etc"/>
+    <property name="projects.dir" location="${basedir}/projects"/>
+    <property name="loadtest.dir" location="${projects.dir}/loadtest"/>
+    <property name="wlsconfig.dir" location="${projects.dir}/wls_config"/>
+    <property environment="env"/>
+
+    <!--
+     Classpath - All library files are placed in the lib directory.
+     -->
+    <path id="lib.path">
+        <!-- Need to include the projects directory in the classpath -->
+        <pathelement location="${loadtest.dir}/"/>
+        <pathelement location="${lib.dir}/Lib/"/>
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <!-- 
+     By declaring this path id as a property we can use it in
+     other path elements.
+     -->
+    <property name="lib.path" refid="lib.path"/>
+
+    <!--
+     Project Classpath - used by any ant tasks that need access to the
+                         project classpath.
+     -->
+    <path id="project.class.path">
+        <pathelement path="${lib.path}"/>
+    </path>
+
+    <!--
+     Create time stamp.
+     -->
+    <target name="init">
+        <tstamp/>
+        <echo message="${ant.project.name}"/>
+    </target>
+
+    <!--
+     Run the Grinder with default properties file.
+     -->
+    <target name="run" depends="init" description="Runs the jyphon scripts">
+        <echo>Test run for ${environment}</echo>
+        <java classname="net.grinder.Grinder"
+              classpathref="project.class.path" fork="yes">
+              <!--jvmarg value="-Dgrinder.jvm.arguments=-Dpython.path=${loadtest.dir}" /-->
+              <jvmarg value="-Xmx256m" />
+              <sysproperty key="java.io.tmpdir" value="./tmp" />
+              <sysproperty key="python.cachedir" value="./tmp" />
+              <sysproperty key="environment" value="vglue" />
+              <sysproperty key="https.proxyPort" value="true" />
+              <!-- sysproperty key="https.proxyHost" value="webaccess" />
+              <sysproperty key="https.proxyPort" value="8080" />
+              <sysproperty key="https.proxyUser" value="Hussein.Badakhchani" />
+              <sysproperty key="https.proxyPassword" value="Password13" /-->
+              <sysproperty key="python.verbose" value="debug" />
+              <sysproperty key="grinder.jvm.arguments" 
+                  value="-Djava.io.tmpdir=./tmp -Djavax.net.ssl.trustStore=${bin.dir}/cacerts -Dpython.cachedir=./tmp" /> 
+              <arg file="./bin/grinder.properties"/>
+        </java>
+    </target>
+
+    <!--
+     Clean the log directory.
+     -->
+    <target name="clean" description="Cleans the log files">
+        <delete dir="$log.dir"/>
+    </target>
+</project>

@@ -1,0 +1,4 @@
+Manifest-Version: 1.2
+
+Name: mobi/hoos
+Sealed: true
