@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# 10b          The 10b command wrapper script.
+#
+# Author:      Hussein Badakhchani (Hoos)
+#
+# Description: This script is used execute the 10b Java application.
+#              10b.  All the arguments that are supplied to this script
+#              are passed on to the 10b Java process.
+
+APPLICATION_HOME=`/bin/env dirname $0`/..
+
+JAVA_HOME=/usr/java/latest
+
+$JAVA_HOME/bin/java -jar $APPLICATION_HOME/lib/10b.jar $*

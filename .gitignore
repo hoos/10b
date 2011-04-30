@@ -1,0 +1,6 @@
+# These files will be ignored by git and normal
+# operations will not apply to them.
+# Proprietary libraries should be registered in file
+# so that they will not be included by default in the repo.
+build
+dist
