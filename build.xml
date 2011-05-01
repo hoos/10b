@@ -25,6 +25,7 @@
   <property name="test.reports.dir" location="${build.dir}/reports"/>
   <property name="project.dir" location="${dist.dir}/${ant.project.name}"/>
   <property name="project.lib.dir" location="${project.dir}/lib"/>
+  <property name="project.doc.dir" location="${project.dir}/docs"/>
   <property name="distribution.dir" location="${etc.dir}/distribution"/>
 
   <!--
@@ -35,7 +36,8 @@
   <property name="deprecation" value="on"/>
 
   <!-- 
-   All dependant libraries are located in the project library directory ${lib.dir}
+   All dependant libraries are located in the project 
+   library directory ${lib.dir}.
   -->
   <path id="classpath">
     <fileset dir="${lib.dir}">
@@ -48,15 +50,21 @@
   <!-- 
    Create the project directory structure.
    -->
-  <target name="create" description="  - (create)s the project directory structure">
+  <target name="create" 
+          description="  - (create)s the project directory structure">
     <mkdir dir="${build.dir}"/>
     <mkdir dir="${dist.dir}"/>
     <mkdir dir="${etc.dir}"/>
     <mkdir dir="${lib.dir}"/>
     <mkdir dir="${src.dir}"/>
     <mkdir dir="${thirdparty.dir}"/>
+    <!-- The project directories are all part of the final distribution. -->
     <mkdir dir="${project.dir}"/>
     <mkdir dir="${project.lib.dir}"/>
+    <mkdir dir="${project.doc.dir}"/>
+    <!-- The distribution directories house files that are not generated
+         by the build process which will be included in the
+         final distribution. -->
     <mkdir dir="${distribution.dir}"/>
     <mkdir dir="${distribution.dir}/docs"/>
     <mkdir dir="${distribution.dir}/etc"/>
@@ -77,7 +85,8 @@
     <mkdir dir="${build.classes.dir}"/>
     <javac srcdir="${src.dir}" destdir="${build.classes.dir}"
            optimize="${optimize}" debug="${debug}"  deprecation="${deprecation}"
-           bootclasspath="${bootclasspath}" classpathref="classpath" includeantruntime="false">
+           bootclasspath="${bootclasspath}" classpathref="classpath"
+           includeantruntime="false">
     </javac>
   </target>
 
@@ -86,11 +95,18 @@
    -->
   <target name="dist" depends="comp"
           description="  - creates a (dist)ribution package of 10b">
+    <!-- Copy the static distribution files to the dist directory -->
     <copy todir="${project.dir}">
       <fileset dir="${distribution.dir}"/>
       <fileset dir="${basedir}" includes="**/thirdparty/**"/>
     </copy>
-    <chmod file="${project.dir}/10b" perm="ugo+rx"/>
+    <!-- Copy the dependant jar files to the dist directory -->
+    <copy todir="${project.lib.dir}">
+      <fileset dir="${lib.dir}" excludes="**/junit*"/>
+    </copy>
+    <javadoc sourcepath="${src.dir}" destdir="${project.doc.dir}/javadoc"
+             classpathref="classpath"/>
+    <chmod file="${project.dir}/bin/10b" perm="ugo+rx"/>
     <chmod dir="${thirdparty.dir}/apache-ant-1.8.2/bin" 
            includes="*" perm="ug+rx"/>
     <jar basedir="${build.classes.dir}"

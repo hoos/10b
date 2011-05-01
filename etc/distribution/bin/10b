@@ -10,6 +10,8 @@
 
 APPLICATION_HOME=`/bin/env dirname $0`/..
 
+JAVA_OPTS="-Djava.util.logging.config.file=$APPLICATION_HOME/etc/logging.properties"
+
 JAVA_HOME=/usr/java/latest
 
-$JAVA_HOME/bin/java -jar $APPLICATION_HOME/lib/10b.jar $*
+$JAVA_HOME/bin/java $JAVA_OPTS -jar $APPLICATION_HOME/lib/10b.jar $*
