@@ -1,5 +1,9 @@
 package mobi.hoos.engine;
 
+import mobi.hoos.resultset.ResultSet;
+import mobi.hoos.dataset.DataSetFactory;
+import mobi.hoos.dataset.DataSet;
+
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.logging.FileHandler;
@@ -21,10 +25,11 @@ import org.apache.commons.cli.ParseException;
  */
 public class TBEngine {
 
+    private static ResultSet resultset = null;
     private static FileHandler fileHandler = null; 
-    private static final Logger logger = Logger.getLogger(TBEngine.class.getName());
+    private static final Logger logger = Logger.getLogger("");
 
-    // Initialise logging.
+    // Initialise our static variables.
     static {
         try {
             TBEngine.fileHandler = new FileHandler("/home/husseinb/Projects/10b/dist/10b/log/10b.log");
@@ -55,6 +60,7 @@ public class TBEngine {
         }  catch( ParseException exp ) {
             logger.log(Level.SEVERE, "Command line parsing failed: " + exp.getMessage() );
         }
-    }
 
+        DataSet dataSet = DataSetFactory.getDataSet(DataSetFactory.INTEGER_TYPE);
+    }
 }

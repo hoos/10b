@@ -15,9 +15,9 @@ public class SingleLineFormatter extends Formatter {
     }
                     
     public String format(LogRecord record) {
-        // use the buffer for optimal string construction
-        StringBuffer sb = new StringBuffer();
-        // level
+       // use the buffer for optimal string construction
+       StringBuffer sb = new StringBuffer();
+       // level
        sb.append(record.getLevel().toString().toLowerCase());
        sb.append(": ");
        // format time
@@ -26,21 +26,18 @@ public class SingleLineFormatter extends Formatter {
        sb.append("[").append(Thread.currentThread().getName()).append("] ");
        // package/class name, logging name
        String name = record.getLoggerName();
-           if (name.startsWith("com.letor.")) // truncate the logging name, reduce the clutter
-               name = name.substring("com.letor.".length());
+       sb.append(name);
+       sb.append("   ");
+       sb.append(record.getMessage());
+       // if there was an exception thrown, log it as well
+       if (record.getThrown() != null) {
+           sb.append("\n").append(printThrown(record.getThrown()));
+       }
 
-               sb.append(name);
-               sb.append("   ");
-               sb.append(record.getMessage());
-               // if there was an exception thrown, log it as well
-               if (record.getThrown() != null) {
-                   sb.append("\n").append(printThrown(record.getThrown()));
-               }
+       sb.append("\n");
 
-               sb.append("\n");
-
-               return sb.toString();
-           }
+       return sb.toString();
+    }
         
     private String printThrown(Throwable thrown) {
         StringBuffer sb = new StringBuffer();
