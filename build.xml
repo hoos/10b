@@ -5,7 +5,12 @@
   Auther Hussein Hosseini Badakhchani (Hoos).                                         
 -->
 
-<project name="10b" default="test" basedir=".">
+<!--
+  The default behaviour of the project build process is to create a 
+  distribution package and run the unit tests against it. 
+  -->
+<project name="10b" default="test" basedir="."
+         xmlns:cs="antlib:com.puppycrawl.tools.checkstyle">
 
   <description>
     10b (pronounced Twobit) is an algorythmic trading application.
@@ -43,7 +48,7 @@
     <fileset dir="${lib.dir}">
       <include name="**/*.jar"/>
     </fileset>
-    <pathelement location="${project.lib..dir}/${ant.project.name}.jar"/>
+    <pathelement location="${project.lib.dir}/${ant.project.name}.jar"/>
     <pathelement location="${project.lib.dir}/${ant.project.name}-test.jar"/>
   </path>
 
@@ -80,7 +85,7 @@
   <!-- 
    Compile the java source code.
    -->
-  <target name="comp" depends="clean, init" 
+  <target name="comp" depends="init, clean" 
           description="  - (comp)iles the source code">
     <mkdir dir="${build.classes.dir}"/>
     <javac srcdir="${src.dir}" destdir="${build.classes.dir}"
@@ -128,9 +133,9 @@
           description="  - (test)s the distribution">
       <mkdir dir="${test.reports.dir}"/>
       <junit printsummary="yes" haltonfailure="yes">
-        <classpath>
-          <path refid="classpath"/>
-        </classpath>
+       <classpath>
+         <path refid="classpath"/> 
+       </classpath>
         <formatter type="xml"/>
         <batchtest fork="no" todir="${test.reports.dir}">
           <fileset dir="${build.classes.dir}">
@@ -140,6 +145,24 @@
       </junit>
   </target>
 
+
+  <!--
+   Run checkstyle against the source cocde.
+   -->
+  <target name="checkstyle" 
+          description="  - runs (checkstyle) against the source code">
+    <cs:checkstyle config="${etc.dir}/sun_checks.xml" failOnViolation="false">
+      <formatter type="xml" tofile="${test.reports.dir}/checkstyle_report.xml"/>
+      <fileset dir="${src.dir}" includes="**/*.java"/>
+      <!-- Location of cache-file. Something that is project specific -->
+      <property key="checkstyle.cache.file" file="target/cachefile"/>
+    </cs:checkstyle>
+    <xslt style="${etc.dir}/checkstyle-frames.xsl" 
+          in="${test.reports.dir}/checkstyle_report.xml" 
+          out="${test.reports.dir}/checkstyle_report.html" />
+
+  </target>
+
   <!--
    Clean build       
    -->
@@ -147,6 +170,13 @@
     <echo message="${ant.project.name}"/>
     <delete dir="${build.dir}"/>
     <delete dir="${dist.dir}"/>
+  </target>
+
+  <!--
+   Build All 
+   -->
+  <target name="buildall" description="  - (build)s (all) the targets in the build"
+          depends="test, checkstyle">
   </target>
 
 </project>
