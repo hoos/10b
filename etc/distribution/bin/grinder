@@ -1,12 +1,15 @@
 #!/bin/sh
 #
-# vglue.sh
+# grinder.sh
 #
 # Author: Hussein Badakhchani
 #
-# Descrioption: The vlgue test grinder script.
+# Description: The grinder shell script is a wrapper for grinder
+#              Ant build script.
 #
 
-. ./setEnv.sh
+BIN_DIR=$PWD/`/bin/env dirname $0`
 
-ant
+. $BIN_DIR/setEnv.sh
+
+ant -buildfile $BIN_DIR/grinder.xml

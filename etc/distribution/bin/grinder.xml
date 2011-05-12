@@ -16,22 +16,23 @@
      Static directories.
      -->
     <property name="bin.dir" location="${basedir}/bin"/>
-    <property name="lib.dir" location="${basedir}/lib"/>
-    <property name="log.dir" location="${basedir}/logs"/>
+    <property name="grinder.dir" location="${basedir}/thirdparty/grinder-3.4"/>
+    <property name="lib.dir" location="${grinder.dir}/lib"/>
+    <property name="10b.lib.dir" location="${basedir}/lib"/>
+    <property name="log.dir" location="${basedir}/log"/>
     <property name="etc.dir" location="${basedir}/etc"/>
-    <property name="projects.dir" location="${basedir}/projects"/>
-    <property name="loadtest.dir" location="${projects.dir}/loadtest"/>
-    <property name="wlsconfig.dir" location="${projects.dir}/wls_config"/>
-    <property environment="env"/>
 
     <!--
      Classpath - All library files are placed in the lib directory.
      -->
     <path id="lib.path">
         <!-- Need to include the projects directory in the classpath -->
-        <pathelement location="${loadtest.dir}/"/>
+        <pathelement location="${bin.dir}/"/>
         <pathelement location="${lib.dir}/Lib/"/>
         <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${10b.lib.dir}">
             <include name="**/*.jar"/>
         </fileset>
     </path>
@@ -69,13 +70,7 @@
               <jvmarg value="-Xmx256m" />
               <sysproperty key="java.io.tmpdir" value="./tmp" />
               <sysproperty key="python.cachedir" value="./tmp" />
-              <sysproperty key="environment" value="vglue" />
-              <sysproperty key="https.proxyPort" value="true" />
-              <!-- sysproperty key="https.proxyHost" value="webaccess" />
-              <sysproperty key="https.proxyPort" value="8080" />
-              <sysproperty key="https.proxyUser" value="Hussein.Badakhchani" />
-              <sysproperty key="https.proxyPassword" value="Password13" /-->
-              <sysproperty key="python.verbose" value="debug" />
+              <sysproperty key="environment" value="test" />
               <sysproperty key="grinder.jvm.arguments" 
                   value="-Djava.io.tmpdir=./tmp -Djavax.net.ssl.trustStore=${bin.dir}/cacerts -Dpython.cachedir=./tmp" /> 
               <arg file="./bin/grinder.properties"/>

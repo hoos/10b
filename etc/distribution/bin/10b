@@ -8,10 +8,13 @@
 #              10b.  All the arguments that are supplied to this script
 #              are passed on to the 10b Java process.
 
-APPLICATION_HOME=`/bin/env dirname $0`/..
+BIN_DIR=$PWD/`/bin/env dirname $0`
+
+APPLICATION_HOME=$BIN_DIR/..
+
+# Source the setEnv.sh script to set up the common environment.
+. $BIN_DIR/setEnv.sh
 
 JAVA_OPTS="-Djava.util.logging.config.file=$APPLICATION_HOME/etc/logging.properties"
-
-JAVA_HOME=/usr/java/latest
 
 $JAVA_HOME/bin/java $JAVA_OPTS -jar $APPLICATION_HOME/lib/10b.jar $*

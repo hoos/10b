@@ -1,6 +1,9 @@
 package mobi.hoos.engine;
 
 import junit.framework.TestCase;
+import mobi.hoos.dataset.DataSet;
+import mobi.hoos.dataset.DataSetFactory;
+import mobi.hoos.engine.TBEngine;
 
 /**
  * The TBEngineTest class is the Junit test case suite for TBEngine.
@@ -8,7 +11,13 @@ import junit.framework.TestCase;
  */
 public class TBEngineTest extends TestCase {
 
-    public void setUp() {}
+    private TBEngine tbEngine; 
 
-    public void test() throws Exception {} 
+    public void setUp() {
+        this.tbEngine = new TBEngine(); 
+    }
+
+    public void testGetDataSet() throws Exception {
+        DataSet dataSet = this.tbEngine.getDataSet(DataSetFactory.INTEGER_TYPE); 
+    } 
 }

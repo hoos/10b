@@ -107,11 +107,13 @@
     </copy>
     <!-- Copy the dependant jar files to the dist directory -->
     <copy todir="${project.lib.dir}">
-      <fileset dir="${lib.dir}" excludes="**/junit*"/>
+      <fileset dir="${lib.dir}"/>
     </copy>
     <javadoc sourcepath="${src.dir}" destdir="${project.doc.dir}/javadoc"
              classpathref="classpath"/>
     <chmod file="${project.dir}/bin/10b" perm="ugo+rx"/>
+    <chmod file="${project.dir}/bin/grinder" perm="ugo+rx"/>
+    <chmod file="${project.dir}/bin/setEnv.sh" perm="ugo+rx"/>
     <chmod dir="${thirdparty.dir}/apache-ant-1.8.2/bin" 
            includes="*" perm="ug+rx"/>
     <jar basedir="${build.classes.dir}"

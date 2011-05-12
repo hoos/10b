@@ -6,12 +6,15 @@
 
 from net.grinder.script.Grinder import grinder
 from net.grinder.script import Test
-from net.grinder.plugin.http import HTTPRequest
+from mobi.hoos.engine import * 
+from mobi.hoos.dataset import * 
+from mobi.hoos.analyser import * 
 
-test1 = Test(1, "Request resource")
-request1 = test1.wrap(HTTPRequest())
+test1 = Test(1, "Get DataSet")
 
 class TestRunner:
     def __call__(self):
-        result = request1.GET("http://saturn.adarc.org/vglue/")
-
+       tbEngineTest = TBEngineTest()
+       tbEngineTest.setUp()
+       
+       test1.wrap(tbEngineTest.testGetDataSet())
