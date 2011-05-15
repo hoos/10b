@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 
 <!--
- Ant build file for Jamshed
+ Ant build file for Grinder and GrinderAnalyzer tasks.
  Author Hussein Badakhchani
  -->
-<project name = "jamshed" default="run" basedir="..">
+<project name = "grinder" default="analyse" basedir="..">
     <description>
-        Jamshed, environment prooving by Hussein Badakhchani
-        This file manages Jamshed tasks.
-        When running ant against any task always specify the environment
-        e.g.:  ant -Denvironment=tt04_online_server01 chkcfg
+        This project maintains the tasks used to run and analyse
+        Grinder load testing scripts. The GrinderAnalyzer tool
+        has been integrated here to enable analysis of the load
+        test results using the Grinder data and out logs.
     </description>
 
     <!--
@@ -17,10 +17,12 @@
      -->
     <property name="bin.dir" location="${basedir}/bin"/>
     <property name="grinder.dir" location="${basedir}/thirdparty/grinder-3.4"/>
+    <property name="analyser.dir" location="${basedir}/thirdparty/GrinderAnalyzer.V2.b13"/>
     <property name="lib.dir" location="${grinder.dir}/lib"/>
     <property name="10b.lib.dir" location="${basedir}/lib"/>
     <property name="log.dir" location="${basedir}/log"/>
     <property name="etc.dir" location="${basedir}/etc"/>
+
 
     <!--
      Classpath - All library files are placed in the lib directory.
@@ -28,11 +30,14 @@
     <path id="lib.path">
         <!-- Need to include the projects directory in the classpath -->
         <pathelement location="${bin.dir}/"/>
-        <pathelement location="${lib.dir}/Lib/"/>
+        <pathelement location="${lib.dir}/Lib"/>
         <fileset dir="${lib.dir}">
             <include name="**/*.jar"/>
         </fileset>
         <fileset dir="${10b.lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${analyser.dir}/lib">
             <include name="**/*.jar"/>
         </fileset>
     </path>
@@ -55,27 +60,49 @@
      Create time stamp.
      -->
     <target name="init">
-        <tstamp/>
+        <tstamp>
+            <format property="BUILD_TIME" pattern="ssmmhh-dd-MM-yyyy"/>
+        </tstamp>
         <echo message="${ant.project.name}"/>
     </target>
 
     <!--
      Run the Grinder with default properties file.
      -->
-    <target name="run" depends="init" description="Runs the jyphon scripts">
-        <echo>Test run for ${environment}</echo>
+    <target name="run" depends="init" 
+            description="(run)s the Grinder load test scripts">
         <java classname="net.grinder.Grinder"
               classpathref="project.class.path" fork="yes">
-              <!--jvmarg value="-Dgrinder.jvm.arguments=-Dpython.path=${loadtest.dir}" /-->
               <jvmarg value="-Xmx256m" />
               <sysproperty key="java.io.tmpdir" value="./tmp" />
               <sysproperty key="python.cachedir" value="./tmp" />
-              <sysproperty key="environment" value="test" />
               <sysproperty key="grinder.jvm.arguments" 
-                  value="-Djava.io.tmpdir=./tmp -Djavax.net.ssl.trustStore=${bin.dir}/cacerts -Dpython.cachedir=./tmp" /> 
+                  value="-Djava.io.tmpdir=./tmp 
+                         -Djavax.net.ssl.trustStore=${bin.dir}/cacerts
+                         -Dpython.cachedir=./tmp" /> 
               <arg file="./bin/grinder.properties"/>
         </java>
     </target>
+
+    <target name="analyse" depends="run" 
+            description="(analyses) the results of the Grinder load tests">
+        <!-- 
+         The hostname is used to find the Grinder data and out logs.
+         COMPUTERNAME is also set so this works on WINDOWS OS.
+         -->
+        <property environment="env"/>
+        <property name="env.COMPUTERNAME" value="${env.HOSTNAME}"/>
+        <java classname="org.python.util.jython"
+             classpathref="project.class.path" fork="yes" dir="${analyser.dir}">
+             <jvmarg value="-Xmx256m" />
+             <sysproperty key="java.io.tmpdir" value="./tmp" />
+             <sysproperty key="python.cachedir" value="./tmp" />
+             <arg line="${analyser.dir}/analyzer.py 
+                       ${log.dir}/data_${env.COMPUTERNAME}-0.log
+                       ${log.dir}/out_${env.COMPUTERNAME}-0.log"/>
+        </java>
+        <move file="${analyser.dir}/grinderReport" toFile="${log.dir}/grinderReport-${BUILD_TIME}"/> 
+   </target>
 
     <!--
      Clean the log directory.

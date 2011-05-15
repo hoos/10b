@@ -16,5 +16,7 @@ class TestRunner:
     def __call__(self):
        tbEngineTest = TBEngineTest()
        tbEngineTest.setUp()
-       
-       test1.wrap(tbEngineTest.testGetDataSet())
+       request = test1.wrap(tbEngineTest)
+       result = request.testGetDataSet()
+       #result = test1.testGetDataSet()
+

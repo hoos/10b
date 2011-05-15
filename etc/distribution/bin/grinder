@@ -12,4 +12,4 @@ BIN_DIR=$PWD/`/bin/env dirname $0`
 
 . $BIN_DIR/setEnv.sh
 
-ant -buildfile $BIN_DIR/grinder.xml
+ant -buildfile $BIN_DIR/grinder.xml $@
