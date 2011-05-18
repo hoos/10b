@@ -53,6 +53,15 @@
   </path>
 
   <!-- 
+   PMD classpath 
+  -->
+  <path id="pmd.classpath">
+    <fileset dir="${thirdparty.dir}/pmd-4.2.5">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>
+
+  <!-- 
    Create the project directory structure.
    -->
   <target name="create" 
@@ -133,13 +142,13 @@
    -->
   <target name="test" depends="dist" 
           description="  - (test)s the distribution">
-      <mkdir dir="${test.reports.dir}"/>
+      <mkdir dir="${test.reports.dir}/junit"/>
       <junit printsummary="yes" haltonfailure="yes">
        <classpath>
          <path refid="classpath"/> 
        </classpath>
         <formatter type="xml"/>
-        <batchtest fork="no" todir="${test.reports.dir}">
+        <batchtest fork="no" todir="${test.reports.dir}/junit">
           <fileset dir="${build.classes.dir}">
             <include name="**/*Test*.class"/>
           </fileset>
@@ -162,7 +171,22 @@
     <xslt style="${etc.dir}/checkstyle-frames.xsl" 
           in="${test.reports.dir}/checkstyle_report.xml" 
           out="${test.reports.dir}/checkstyle_report.html" />
+  </target>
 
+  <!--
+   Run PMD against the source cocde.
+   -->
+  <target name="pmd"> 
+    <taskdef name="pmd" 
+             classname="net.sourceforge.pmd.ant.PMDTask"
+             classpathref="pmd.classpath"/>
+    <mkdir dir="${test.reports.dir}/pmd"/>
+    <pmd rulesetfiles="imports" targetjdk="1.6">
+        <formatter type="xml" toFile="${test.reports.dir}/pmd/pmd_report.xml" toConsole="fale"/>
+        <fileset dir="${src.dir}">
+            <include name="**/*.java"/>
+        </fileset>
+    </pmd>
   </target>
 
   <!--
@@ -178,7 +202,7 @@
    Build All 
    -->
   <target name="buildall" description="  - (build)s (all) the targets in the build"
-          depends="test, checkstyle">
+          depends="test, checkstyle, pmd">
   </target>
 
 </project>
