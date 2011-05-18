@@ -162,15 +162,14 @@
    -->
   <target name="checkstyle" 
           description="  - runs (checkstyle) against the source code">
-    <cs:checkstyle config="${etc.dir}/sun_checks.xml" failOnViolation="false">
-      <formatter type="xml" tofile="${test.reports.dir}/checkstyle_report.xml"/>
-      <fileset dir="${src.dir}" includes="**/*.java"/>
-      <!-- Location of cache-file. Something that is project specific -->
-      <property key="checkstyle.cache.file" file="target/cachefile"/>
-    </cs:checkstyle>
+          <mkdir dir="${test.reports.dir}/checkstyle"/>
+      <cs:checkstyle config="${etc.dir}/sun_checks.xml" failOnViolation="false">
+          <formatter type="xml" tofile="${test.reports.dir}/checkstyle/checkstyle_report.xml"/>
+          <fileset dir="${src.dir}" includes="**/*.java"/>
+      </cs:checkstyle>
     <xslt style="${etc.dir}/checkstyle-frames.xsl" 
-          in="${test.reports.dir}/checkstyle_report.xml" 
-          out="${test.reports.dir}/checkstyle_report.html" />
+          in="${test.reports.dir}/checkstyle/checkstyle_report.xml" 
+          out="${test.reports.dir}/checkstyle/checkstyle_report.html" />
   </target>
 
   <!--
@@ -181,8 +180,34 @@
              classname="net.sourceforge.pmd.ant.PMDTask"
              classpathref="pmd.classpath"/>
     <mkdir dir="${test.reports.dir}/pmd"/>
-    <pmd rulesetfiles="imports" targetjdk="1.6">
-        <formatter type="xml" toFile="${test.reports.dir}/pmd/pmd_report.xml" toConsole="fale"/>
+    <pmd targetjdk="1.6">
+        <ruleset>basic</ruleset>
+        <ruleset>braces</ruleset>
+        <ruleset>imports</ruleset>
+        <ruleset>unusedcode</ruleset>
+        <ruleset>clone</ruleset>
+        <ruleset>codesize</ruleset>
+        <ruleset>coupling</ruleset>
+        <ruleset>design</ruleset>
+        <ruleset>finalizers</ruleset>
+        <ruleset>imports</ruleset>
+        <ruleset>j2ee</ruleset>
+        <ruleset>javabeans</ruleset>
+        <ruleset>junit</ruleset>
+        <ruleset>logging-java</ruleset>
+        <!--ruleset>migrating_to_15</ruleset>
+        <ruleset>migrating_to_junit4</ruleset-->
+        <ruleset>naming</ruleset>
+        <ruleset>optimizations</ruleset>
+        <ruleset>strictexception</ruleset>
+        <ruleset>strings</ruleset>
+        <ruleset>sunsecure</ruleset>
+        <ruleset>typeresolution</ruleset>
+        <ruleset>unusedcode</ruleset>
+        <formatter type="xml" 
+                   toFile="${test.reports.dir}/pmd/pmd_report.xml" 
+                   showSuppressed="true"
+                   toConsole="fale"/>
         <fileset dir="${src.dir}">
             <include name="**/*.java"/>
         </fileset>
