@@ -10,4 +10,4 @@
 #
 # 10b is open source and free to use, I would however be extremely grateful
 # if you can provided constructive feedback from your experience of using it
-# me via my GitHub account: hoos
+# to me via my GitHub account: hoos
