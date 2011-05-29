@@ -1,7 +1,7 @@
 package mobi.hoos.analyser;
 
 /**
- * The Analyser interface specifies the message signatures 
+ * The Analyser interface specifies the message signatures
  * for all Analyser implementations.
  * @author Hussein Badakhchani
  */
