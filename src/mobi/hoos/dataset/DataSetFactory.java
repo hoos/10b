@@ -14,15 +14,15 @@ public class DataSetFactory {
 
     private static final Logger logger = Logger.getLogger("");
 
-    public static DataSet getDataSet(String dataSetType) {
+    public final static DataSet getDataSet(String dataSetType) {
         DataSet dataset = null;
         if (dataSetType.equals(DataSetFactory.INTEGER_TYPE)) {
             dataset = new IntegerDataSet();
         } else {
-            DataSetFactory.logger.log(Level.SEVERE, "Unknown data set type: " + dataSetType);
+            DataSetFactory.logger.log(Level.SEVERE, "Unknown data set type: "
+            + dataSetType);
         }
-            DataSetFactory.logger.log(Level.INFO, "Created Dataset: " + dataSetType);
+            DataSetFactory.logger.log(Level.INFO, "Created Dataset: "
+            + dataSetType);
         return dataset;
     }
-
-}
