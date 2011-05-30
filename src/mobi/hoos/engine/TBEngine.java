@@ -56,8 +56,8 @@ public class TBEngine {
         try {
             // parse the command line arguments
             CommandLine line = parser.parse(options, args);
-        }  catch( ParseException exp ) {
-            logger.log(Level.SEVERE, "Command line parsing failed: " + exp.getMessage() );
+        }  catch(ParseException exp) {
+            logger.log(Level.SEVERE, "Command line parsing failed: " + exp.getMessage());
         }
 
         TBEngine tbEngine = new TBEngine();
