@@ -29,8 +29,9 @@ public class TBEngine {
 
     // Initialise our static variables.
     static {
+        String logFile = "/home/husseinb/Projects/10b/dist/10b/log/10b.log"
         try {
-            TBEngine.fileHandler = new FileHandler("/home/husseinb/Projects/10b/dist/10b/log/10b.log");
+            TBEngine.fileHandler = new FileHandler(logFile);
             logger.addHandler(fileHandler);
             logger.setUseParentHandlers(false);
         } catch (IOException e) {
@@ -54,7 +55,7 @@ public class TBEngine {
         CommandLineParser parser = new GnuParser();
         try {
             // parse the command line arguments
-            CommandLine line = parser.parse( options, args );
+            CommandLine line = parser.parse(options, args);
         }  catch( ParseException exp ) {
             logger.log(Level.SEVERE, "Command line parsing failed: " + exp.getMessage() );
         }
