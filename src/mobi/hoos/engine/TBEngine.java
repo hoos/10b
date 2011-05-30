@@ -7,7 +7,6 @@ import mobi.hoos.dataset.DataSet;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.logging.FileHandler;
-import java.util.logging.SimpleFormatter;
 import java.io.IOException;
 
 import org.apache.commons.cli.CommandLineParser;
@@ -15,7 +14,6 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.Parser;
 import org.apache.commons.cli.ParseException;
 
 
@@ -26,18 +24,17 @@ import org.apache.commons.cli.ParseException;
 public class TBEngine {
 
     private static ResultSet resultset = null;
-    private static FileHandler fileHandler = null; 
+    private static FileHandler fileHandler = null;
     private static final Logger logger = Logger.getLogger("");
 
     // Initialise our static variables.
     static {
         try {
             TBEngine.fileHandler = new FileHandler("/home/husseinb/Projects/10b/dist/10b/log/10b.log");
-            logger.addHandler(fileHandler); 
+            logger.addHandler(fileHandler);
             logger.setUseParentHandlers(false);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Failed to create log file handler: ./log/10.log");
-        }
     }
 
     public static void main(String[] args) {
@@ -59,7 +56,6 @@ public class TBEngine {
             CommandLine line = parser.parse( options, args );
         }  catch( ParseException exp ) {
             logger.log(Level.SEVERE, "Command line parsing failed: " + exp.getMessage() );
-        }
 
         TBEngine tbEngine = new TBEngine();
 
@@ -69,6 +65,5 @@ public class TBEngine {
     public DataSet getDataSet(String dataSetType) {
         DataSet dataSet = DataSetFactory.getDataSet(dataSetType);
         return dataSet;
-        
     }
 }
