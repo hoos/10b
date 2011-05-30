@@ -10,13 +10,15 @@ import java.util.logging.Level;
  */
 public class DataSetFactory {
 
-    private DataSetFactory() {
-
-    }
+    /**
+     * Private constructor becuase noone should ever have to create
+     * this class.
+     */
+    private DataSetFactory() {}
 
     public static final String INTEGER_TYPE = "INTEGER";
 
-    private static final Logger logger = Logger.getLogger("");
+    private static final Logger logger = Logger.getLogger("DataSetFactory");
 
 
     public static final DataSet getDataSet(String dataSetType) {
