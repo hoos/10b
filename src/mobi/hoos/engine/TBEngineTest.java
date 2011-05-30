@@ -22,6 +22,9 @@ public class TBEngineTest extends TestCase {
         this.tbEngine = new TBEngine();
     }
 
+    /**
+     * Ensures the dataset meets the criteria required to process it.
+     */
     public void testGetDataSet() throws Exception {
         DataSet dataSet = this.tbEngine.getDataSet(DataSetFactory.INTEGER_TYPE);
     }
