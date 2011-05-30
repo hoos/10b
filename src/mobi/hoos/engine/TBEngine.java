@@ -35,6 +35,7 @@ public class TBEngine {
             logger.setUseParentHandlers(false);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Failed to create log file handler: ./log/10.log");
+        }
     }
 
     public static void main(String[] args) {
