@@ -29,7 +29,7 @@ public class TBEngine {
 
     // Initialise our static variables.
     static {
-        String logFile = "/home/husseinb/Projects/10b/dist/10b/log/10b.log"
+        String logFile = "/home/husseinb/Projects/10b/dist/10b/log/10b.log";
         try {
             TBEngine.fileHandler = new FileHandler(logFile);
             logger.addHandler(fileHandler);
