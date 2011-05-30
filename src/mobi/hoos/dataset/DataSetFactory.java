@@ -10,9 +10,14 @@ import java.util.logging.Level;
  */
 public class DataSetFactory {
 
+    private DataSetFactory() {
+
+    }
+
     public static final String INTEGER_TYPE = "INTEGER";
 
     private static final Logger logger = Logger.getLogger("");
+
 
     public static final DataSet getDataSet(String dataSetType) {
         DataSet dataset = null;
