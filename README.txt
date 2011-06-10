@@ -6,7 +6,7 @@
 # choice to help inform your research and decision making.
 #
 # I decided to write 10b because I couldn't find any 'simple', free, 
-# open and extensible algorithmic analysis applications and I need one.  
+# open and extensible algorithmic analysis applications and I needed one.  
 #
 # 10b is open source and free to use, I would however be extremely grateful
 # if you can provided constructive feedback from your experience of using it
