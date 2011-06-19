@@ -25,7 +25,7 @@ public final class DataSetFactory {
     /**
      * The logger used by the class.
      */
-    private static final Logger logger = Logger.getLogger("DataSetFactory");
+    private static final Logger LOGGER = Logger.getLogger("DataSetFactory");
 
 
     /** 
@@ -39,10 +39,10 @@ public final class DataSetFactory {
         if (dataSetType.equals(DataSetFactory.INTEGER_TYPE)) {
             dataset = new IntegerDataSet();
         } else {
-            DataSetFactory.logger.log(Level.SEVERE, "Unknown data set type: "
+            DataSetFactory.LOGGER.log(Level.SEVERE, "Unknown data set type: "
             + dataSetType);
         }
-            DataSetFactory.logger.log(Level.INFO, "Created Dataset: "
+            DataSetFactory.LOGGER.log(Level.INFO, "Created Dataset: "
             + dataSetType);
         return dataset;
     }
