@@ -25,7 +25,9 @@ public final class DataSetFactory {
     private static final Logger logger = Logger.getLogger("DataSetFactory");
 
 
-    /** {@inheritDoc} */
+    /** 
+     * Returns the dataset type determined by the datasetType argument. 
+     */
     public static DataSet getDataSet(final String dataSetType) {
         DataSet dataset = null;
         if (dataSetType.equals(DataSetFactory.INTEGER_TYPE)) {
