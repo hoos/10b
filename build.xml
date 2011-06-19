@@ -165,8 +165,8 @@
       <mkdir dir="${test.reports.dir}/checkstyle"/>
       <cs:checkstyle config="${etc.dir}/sun_checks.xml" failOnViolation="false">
           <formatter type="xml" tofile="${test.reports.dir}/checkstyle/checkstyle_report.xml"/>
-          <property key="allowEmptyMethods" value="true"/>
-          <property key="allowEmptyConstructors" value="true"/>
+          <property name="allowEmptyMethods" value="true"/>
+          <property name="allowEmptyConstructors" value="true"/>
           <fileset dir="${src.dir}" includes="**/*.java"/>
       </cs:checkstyle>
     <xslt style="${etc.dir}/checkstyle-frames.xsl" 
