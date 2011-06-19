@@ -43,7 +43,7 @@ public class TBEngine {
      * The main method initiates execution of 10b.
      * @param args A string arry of the command line arguments.
      */
-    public static void main(String[] args) {
+    public final static void main(String[] args) {
         LOGGER.log(Level.INFO, "Starting 10b!");
 
         // Create Options object
@@ -72,7 +72,7 @@ public class TBEngine {
      * Returns the data set representation of the data.
      * return DataSet a referencet to the data set.
      */
-    public DataSet getDataSet(String dataSetType) {
+    public final DataSet getDataSet(String dataSetType) {
         return DataSetFactory.getDataSet(dataSetType);
     }
 }
