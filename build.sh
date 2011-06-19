@@ -9,7 +9,6 @@
 #              are passed on to Ant.
 
 APPLICATION_HOME=`/bin/env dirname $0`
-#APPLICATION_HOME=$BIN_DIR
 ANT_HOME=$APPLICATION_HOME/thirdparty/apache-ant-1.8.2
 
 $ANT_HOME/bin/ant -buildfile $APPLICATION_HOME/build.xml $*
