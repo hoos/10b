@@ -11,7 +11,7 @@ import java.util.logging.Level;
 public final class DataSetFactory {
 
     /**
-     * Private constructor becuase noone should ever have to create
+     * Private constructor becuase no one should ever have to create
      * this class.
      */
     private DataSetFactory() {}
@@ -21,6 +21,7 @@ public final class DataSetFactory {
     private static final Logger logger = Logger.getLogger("DataSetFactory");
 
 
+    /** {@inheritDoc} */
     public static DataSet getDataSet(final String dataSetType) {
         DataSet dataset = null;
         if (dataSetType.equals(DataSetFactory.INTEGER_TYPE)) {
