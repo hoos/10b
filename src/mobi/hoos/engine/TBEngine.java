@@ -29,9 +29,9 @@ public class TBEngine {
 
     // Initialise our static variables.
     static {
-        String logFile = "/home/husseinb/Projects/10b/dist/10b/log/10b.log";
+        final String LOGFILE = "/home/husseinb/Projects/10b/dist/10b/log/10b.log";
         try {
-            TBEngine.fileHandler = new FileHandler(logFile);
+            TBEngine.fileHandler = new FileHandler(LOGFILE);
             LOGGER.addHandler(fileHandler);
             LOGGER.setUseParentHandlers(false);
         } catch (IOException e) {
@@ -47,25 +47,25 @@ public class TBEngine {
         LOGGER.log(Level.INFO, "Starting 10b!");
 
         // Create Options object
-        Options options = new Options();
+        final Options options = new Options();
 
         // Setup options
-        Option help = new Option("help", "print this message");
-        Option version = new Option("version", "print the version information and exit");
-        Option quiet = new Option("quiet", "be extra quiet");
-        Option verbose = new Option("quiet", "be extra verbose");
+        final Option help = new Option("help", "print this message");
+        final Option version = new Option("version", "print the version information and exit");
+        final Option quiet = new Option("quiet", "be extra quiet");
+        final Option verbose = new Option("quiet", "be extra verbose");
 
         // Create the command line parser
-        CommandLineParser parser = new GnuParser();
+        final CommandLineParser parser = new GnuParser();
         try {
             // parse the command line arguments
-            CommandLine line = parser.parse(options, args);
+            final CommandLine line = parser.parse(options, args);
         }  catch(ParseException exp) {
             LOGGER.log(Level.SEVERE, "Command line parsing failed: " + exp.getMessage());
         }
 
-        TBEngine tbEngine = new TBEngine();
-        DataSet dataSet = tbEngine.getDataSet(DataSetFactory.INTEGER_TYPE);
+        final TBEngine tbEngine = new TBEngine();
+        final DataSet dataSet = tbEngine.getDataSet(DataSetFactory.INTEGER_TYPE);
     }
 
     /**
