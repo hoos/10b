@@ -21,7 +21,7 @@ public class DataSetFactory {
     private static final Logger logger = Logger.getLogger("DataSetFactory");
 
 
-    public static final DataSet getDataSet(String dataSetType) {
+    public static final DataSet getDataSet(final String dataSetType) {
         DataSet dataset = null;
         if (dataSetType.equals(DataSetFactory.INTEGER_TYPE)) {
             dataset = new IntegerDataSet();
