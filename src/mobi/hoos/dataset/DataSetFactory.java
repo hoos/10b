@@ -14,7 +14,7 @@ public final class DataSetFactory {
      * Private constructor becuase no one should ever have to create
      * this class.
      */
-    private DataSetFactory() {}
+    private DataSetFactory() {} // empty constructor
 
     /**
      * A String used by the factory to determine the type of dataset 
