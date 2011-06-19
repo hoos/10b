@@ -25,22 +25,26 @@ public class TBEngine {
 
     private static ResultSet resultset = null;
     private static FileHandler fileHandler = null;
-    private static final Logger logger = Logger.getLogger("");
+    private static final Logger LOGGER = Logger.getLogger("");
 
     // Initialise our static variables.
     static {
         String logFile = "/home/husseinb/Projects/10b/dist/10b/log/10b.log";
         try {
             TBEngine.fileHandler = new FileHandler(logFile);
-            logger.addHandler(fileHandler);
-            logger.setUseParentHandlers(false);
+            LOGGER.addHandler(fileHandler);
+            LOGGER.setUseParentHandlers(false);
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Failed to create log file handler: ./log/10.log");
+            LOGGER.log(Level.SEVERE, "Failed to create log file handler: ./log/10.log");
         }
     }
 
+    /**
+     * The main method initiates execution of 10b.
+     * @param args A string arry of the command line arguments.
+     */
     public static void main(String[] args) {
-        logger.log(Level.INFO, "Starting 10b!");
+        LOGGER.log(Level.INFO, "Starting 10b!");
 
         // Create Options object
         Options options = new Options();
@@ -57,15 +61,18 @@ public class TBEngine {
             // parse the command line arguments
             CommandLine line = parser.parse(options, args);
         }  catch(ParseException exp) {
-            logger.log(Level.SEVERE, "Command line parsing failed: " + exp.getMessage());
+            LOGGER.log(Level.SEVERE, "Command line parsing failed: " + exp.getMessage());
         }
 
         TBEngine tbEngine = new TBEngine();
         DataSet dataSet = tbEngine.getDataSet(DataSetFactory.INTEGER_TYPE);
     }
 
+    /**
+     * Returns the data set representation of the data.
+     * return DataSet a referencet to the data set.
+     */
     public DataSet getDataSet(String dataSetType) {
-        DataSet dataSet = DataSetFactory.getDataSet(dataSetType);
-        return dataSet;
+        return DataSetFactory.getDataSet(dataSetType);
     }
 }
