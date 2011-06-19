@@ -27,7 +27,7 @@ public class TBEngineTest extends TestCase {
      * Ensures the dataset meets the criteria required to process it.
      */
     public void testGetDataSet() {
-        DataSet dataSet = this.tbEngine.getDataSet(DataSetFactory.INTEGER_TYPE);
+        final DataSet dataSet = this.tbEngine.getDataSet(DataSetFactory.INTEGER_TYPE);
         assertNotNull("Null DataSet!", dataSet);
     }
 }
