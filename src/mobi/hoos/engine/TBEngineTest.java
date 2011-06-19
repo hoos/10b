@@ -1,6 +1,6 @@
 package mobi.hoos.engine;
 
-import static org.junit.Assert.*;
+import org.junit.Assert;
 import junit.framework.TestCase;
 import mobi.hoos.dataset.DataSet;
 import mobi.hoos.dataset.DataSetFactory;
@@ -28,6 +28,6 @@ public class TBEngineTest extends TestCase {
      */
     public void testGetDataSet() {
         final DataSet dataSet = this.tbEngine.getDataSet(DataSetFactory.INTEGER_TYPE);
-        assertNotNull("Null DataSet!", dataSet);
+        Assert.assertNotNull("Null DataSet!", dataSet);
     }
 }
