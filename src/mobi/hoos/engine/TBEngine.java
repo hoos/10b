@@ -29,9 +29,9 @@ public class TBEngine {
 
     // Initialise our static variables.
     static {
-        final String LOGFILE = "/home/husseinb/Projects/10b/dist/10b/log/10b.log";
+        final String logfile = "/home/husseinb/Projects/10b/dist/10b/log/10b.log";
         try {
-            TBEngine.fileHandler = new FileHandler(LOGFILE);
+            TBEngine.fileHandler = new FileHandler(logfile);
             LOGGER.addHandler(fileHandler);
             LOGGER.setUseParentHandlers(false);
         } catch (IOException e) {
