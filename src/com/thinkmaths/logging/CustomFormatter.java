@@ -67,7 +67,7 @@ public class CustomFormatter extends Formatter {
         super();
 
         // load the format from logging.properties
-        String propName = getClass().getName() + ".format";
+        final String propName = getClass().getName() + ".format";
         String format = LogManager.getLogManager().getProperty(propName);
         if (format == null || format.trim().length() == 0) {
             format = DEFAULT_FORMAT;
@@ -85,7 +85,7 @@ public class CustomFormatter extends Formatter {
     }
 
     @Override
-    public final String format(LogRecord record) {
+    public final String format(final LogRecord record) {
         String[] arguments = new String[8];
         // %L
         arguments[CustomFormatter.LOGLEVEL] = record.getLevel().toString();
@@ -93,7 +93,7 @@ public class CustomFormatter extends Formatter {
         arguments[1] = record.getMessage();
         // sometimes the message is empty, but there is a throwable
         if (arguments[1] == null || arguments[1].length() == 0) {
-            Throwable thrown = record.getThrown();
+            final Throwable thrown = record.getThrown();
             if (thrown != null) {
                 arguments[1] = thrown.getMessage();
             }
@@ -105,7 +105,7 @@ public class CustomFormatter extends Formatter {
             arguments[2] = "?";
         }
         // %t
-        Date date = new Date(record.getMillis());
+        final Date date = new Date(record.getMillis());
         synchronized (dateFormat) {
             arguments[CustomFormatter.TIMESTAMP] = dateFormat.format(date);
         }
@@ -120,7 +120,7 @@ public class CustomFormatter extends Formatter {
         // %n
         arguments[6] = record.getLoggerName();
         // %C
-        int start = arguments[4].lastIndexOf(".") + 1;
+        final int start = arguments[4].lastIndexOf(".") + 1;
         if (start > 0 && start < arguments[4].length()) {
             arguments[7] = arguments[4].substring(start);
         } else {
