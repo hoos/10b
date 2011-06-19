@@ -16,6 +16,10 @@ public final class DataSetFactory {
      */
     private DataSetFactory() {}
 
+    /**
+     * A String used by the factory to determine the type of dataset 
+     * to create and return.
+     */
     public static final String INTEGER_TYPE = "INTEGER";
 
     private static final Logger logger = Logger.getLogger("DataSetFactory");
