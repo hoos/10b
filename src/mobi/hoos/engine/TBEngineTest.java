@@ -28,6 +28,6 @@ public class TBEngineTest extends TestCase {
      */
     public void testGetDataSet() {
         DataSet dataSet = this.tbEngine.getDataSet(DataSetFactory.INTEGER_TYPE);
-        assertNotNull(dataSet);
+        assertNotNull("Null DataSet!", dataSet);
     }
 }
