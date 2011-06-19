@@ -14,7 +14,7 @@ public class TBEngineTest extends TestCase {
     /**
      * The private constructor of the Two Bit Engine.
      */
-    private TBEngine tbEngine;
+    private transient TBEngine tbEngine;
 
     /**
      * Set up the test case by creating an instance of the Two Bit Engine class.
