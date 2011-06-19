@@ -8,7 +8,7 @@ import java.util.logging.Level;
  * dataset types from the users of those datasets.
  * @author Hussein Badakhchani
  */
-public class DataSetFactory {
+public final class DataSetFactory {
 
     /**
      * Private constructor becuase noone should ever have to create
