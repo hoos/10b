@@ -22,13 +22,17 @@ public final class DataSetFactory {
      */
     public static final String INTEGER_TYPE = "INTEGER";
 
+    /**
+     * The logger used by the class.
+     */
     private static final Logger logger = Logger.getLogger("DataSetFactory");
 
 
     /** 
      * Returns the dataset type determined by the datasetType argument. 
-     * @param dataSetType
-     * @return DataSet
+     *
+     * @param dataSetType the integer describing the data set type.
+     * @return dataset a reference to the newly created dataset.
      */
     public static DataSet getDataSet(final String dataSetType) {
         DataSet dataset = null;
