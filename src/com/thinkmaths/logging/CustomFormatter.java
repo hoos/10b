@@ -120,7 +120,7 @@ public class CustomFormatter extends Formatter {
     /**
      * stringBuilder is used to optimise the message formatting.
      */
-    private final transient StringBuilder stringBuilder = 
+    private final transient StringBuilder stringBuilder =
         new StringBuilder(ONETWOEIGHT);
 
     /** */
@@ -162,22 +162,16 @@ public class CustomFormatter extends Formatter {
             }
         }
         // %M
-        if (record.getSourceMethodName() != null) {
-            arguments[LOGGER] = record.getSourceMethodName();
-        } else {
-            arguments[LOGGER] = "?";
-        }
+        arguments[LOGGER] = (record.getSourceMethodName() == null) ?
+         "?" : record.getSourceMethodName();
         // %t
         final Date date = new Date(record.getMillis());
         synchronized (dateFormat) {
             arguments[CustomFormatter.TIMESTAMP] = dateFormat.format(date);
         }
         // %c
-        if (record.getSourceClassName() != null) {
-            arguments[CustomFormatter.METHOD] = record.getSourceClassName();
-        } else {
-            arguments[CustomFormatter.METHOD] = "?";
-        }
+        arguments[CustomFormatter.METHOD] = (record.getSourceClassName() == null) ?
+        "?" : record.getSourceClassName() ;
         // %T
         arguments[THREAD_ID] = Integer.toString(record.getThreadID());
         // %n
