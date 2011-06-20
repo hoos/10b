@@ -120,7 +120,8 @@ public class CustomFormatter extends Formatter {
     /**
      * stringBuilder is used to optimise the message formatting.
      */
-    private final transient StringBuilder stringBuilder = new StringBuilder(ONETWOEIGHT);
+    private final transient StringBuilder stringBuilder = 
+        new StringBuilder(ONETWOEIGHT);
 
     /** */
     public CustomFormatter() {
