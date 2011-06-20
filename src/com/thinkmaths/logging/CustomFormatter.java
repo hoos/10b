@@ -50,9 +50,9 @@ import java.util.logging.LogRecord;
  * @author Hussein Badakhchani
  */
 public class CustomFormatter extends Formatter {
+
     /**
-     * The default format of the log file is expressed
-     * as the RE %L: %m [%c.%M %t]
+     * The default format of the log file expressed as the RE %L: %m [%c.%M %t].
      */
     private static final String DEFAULT_FORMAT = "%L: %m [%c.%M %t]";
 
@@ -106,7 +106,10 @@ public class CustomFormatter extends Formatter {
      */
     private final transient MessageFormat messageFormat;
 
-    private transient final DateFormat dateFormat =
+    /**
+     * The date format used in the log file: yyyy-MM-dd HH:mm:ss Z.
+     */
+    private final transient DateFormat dateFormat =
         new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
 
     /** */
