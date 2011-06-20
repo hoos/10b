@@ -19,7 +19,7 @@ public class TBEngineTest extends TestCase {
     /**
      * Set up the test case by creating an instance of the Two Bit Engine class.
      */
-    public void setUp() {
+    public final void setUp() {
         this.tbEngine = new TBEngine();
     }
 
