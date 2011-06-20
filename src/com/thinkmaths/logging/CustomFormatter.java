@@ -128,7 +128,9 @@ public class CustomFormatter extends Formatter {
         super();
 
         // load the format from logging.properties
-        final String propName = getClass().getName() + ".format";
+        stringBuilder.append(getClass().getName());
+        stringBuilder.append(".format");
+        final String propName = stringBuilder.toString();
         String format = LogManager.getLogManager().getProperty(propName);
         if (format == null || format.trim().length() == 0) {
             format = DEFAULT_FORMAT;
