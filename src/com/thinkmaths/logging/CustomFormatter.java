@@ -94,9 +94,9 @@ public class CustomFormatter extends Formatter {
     /**
      * The expected integer index position of the log message format argument.
      */
-    private final MessageFormat messageFormat;
+    private transient final MessageFormat messageFormat;
 
-    private final DateFormat dateFormat =
+    private transient final DateFormat dateFormat =
         new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
 
     /** */
