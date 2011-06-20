@@ -43,7 +43,7 @@ import java.util.logging.LogRecord;
  * <li>{@code %C} - source simple class name (if available, otherwise "?")</li>
  * <li>{@code %T} - thread ID</li>
  * </ul>
- * The default format is {@value #DEFAULT_FORMAT}. Curly brace characters are 
+ * The default format is {@value #DEFAULT_FORMAT}. Curly brace characters are
  * not allowed.
  *
  * @author Samuel Halliday
@@ -56,6 +56,8 @@ public class CustomFormatter extends Formatter {
     private static final int LOGGER = 2;
     private static final int TIMESTAMP = 3;
     private static final int METHOD = 4;
+    private static final int THREAD_ID = 5;
+    private static final int LOGGER_NAME = 6;
 
     private final MessageFormat messageFormat;
 
@@ -90,19 +92,19 @@ public class CustomFormatter extends Formatter {
         // %L
         arguments[CustomFormatter.LOGLEVEL] = record.getLevel().toString();
         // %m
-        arguments[1] = record.getMessage();
+        arguments[MESSAGE] = record.getMessage();
         // sometimes the message is empty, but there is a throwable
-        if (arguments[1] == null || arguments[1].length() == 0) {
+        if (arguments[MESSAGE] == null || arguments[MESSAGE].length() == 0) {
             final Throwable thrown = record.getThrown();
             if (thrown != null) {
-                arguments[1] = thrown.getMessage();
+                arguments[MESSAGE] = thrown.getMessage();
             }
         }
         // %M
         if (record.getSourceMethodName() != null) {
-            arguments[2] = record.getSourceMethodName();
+            arguments[LOGGER] = record.getSourceMethodName();
         } else {
-            arguments[2] = "?";
+            arguments[LOGGER] = "?";
         }
         // %t
         final Date date = new Date(record.getMillis());
@@ -116,15 +118,15 @@ public class CustomFormatter extends Formatter {
             arguments[CustomFormatter.METHOD] = "?";
         }
         // %T
-        arguments[5] = Integer.valueOf(record.getThreadID()).toString();
+        arguments[THREAD_ID] = Integer.valueOf(record.getThreadID()).toString();
         // %n
-        arguments[6] = record.getLoggerName();
+        arguments[LOGGER_NAME] = record.getLoggerName();
         // %C
-        final int start = arguments[4].lastIndexOf(".") + 1;
-        if (start > 0 && start < arguments[4].length()) {
-            arguments[7] = arguments[4].substring(start);
+        final int start = arguments[METHOD].lastIndexOf(".") + 1;
+        if (start > 0 && start < arguments[METHOD].length()) {
+            arguments[7] = arguments[METHOD].substring(start);
         } else {
-            arguments[7] = arguments[4];
+            arguments[7] = arguments[METHOD];
         }
 
         synchronized (messageFormat) {
