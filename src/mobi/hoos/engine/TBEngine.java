@@ -23,8 +23,19 @@ import org.apache.commons.cli.ParseException;
  */
 public class TBEngine {
 
+    /**
+     * The object which contains the results of the analysis.
+     */
     private static ResultSet resultset = null;
+
+    /**
+     * The log file handler.
+     */
     private static FileHandler fileHandler = null;
+
+    /**
+     * The logger object used by the TBEngine.
+     */
     private static final Logger LOGGER = Logger.getLogger("");
 
     // Initialise our static variables.
