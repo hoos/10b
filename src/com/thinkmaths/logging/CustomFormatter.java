@@ -102,6 +102,11 @@ public class CustomFormatter extends Formatter {
     private static final int EIGHT = 8;
 
     /**
+     * Aviod the checksyle Magic Number warning for 128!.
+     */
+    private static final int ONETWOEIGHT = 128;
+
+    /**
      * The message format.
      */
     private final transient MessageFormat messageFormat;
@@ -115,7 +120,7 @@ public class CustomFormatter extends Formatter {
     /**
      * stringBuilder is used to optimise the message formatting.
      */
-    private transient StringBuilder stringBuilder = new StringBuilder(128);
+    private final transient StringBuilder stringBuilder = new StringBuilder(ONETWOEIGHT);
 
     /** */
     public CustomFormatter() {
@@ -175,7 +180,7 @@ public class CustomFormatter extends Formatter {
         // %n
         arguments[LOGGER_NAME] = record.getLoggerName();
         // %C
-        final int start = arguments[METHOD].lastIndexOf(".") + 1;
+        final int start = arguments[METHOD].lastIndexOf('.') + 1;
         if (start > 0 && start < arguments[METHOD].length()) {
             //arguments[SEVEN] = arguments[METHOD].substring(start);
             stringBuilder.append(arguments[METHOD]);
