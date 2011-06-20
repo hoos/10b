@@ -153,7 +153,7 @@ public class CustomFormatter extends Formatter {
             arguments[CustomFormatter.METHOD] = "?";
         }
         // %T
-        arguments[THREAD_ID] = Integer.valueOf(record.getThreadID()).toString();
+        arguments[THREAD_ID] = Integer.toString(record.getThreadID());
         // %n
         arguments[LOGGER_NAME] = record.getLoggerName();
         // %C
