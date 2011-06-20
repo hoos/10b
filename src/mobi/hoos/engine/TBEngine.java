@@ -29,13 +29,15 @@ public class TBEngine {
 
     // Initialise our static variables.
     static {
-        final String logfile = "/home/husseinb/Projects/10b/dist/10b/log/10b.log";
+        final String logfile = 
+            "/home/husseinb/Projects/10b/dist/10b/log/10b.log";
         try {
             TBEngine.fileHandler = new FileHandler(logfile);
             LOGGER.addHandler(fileHandler);
             LOGGER.setUseParentHandlers(false);
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Failed to create log file handler: ./log/10.log");
+            LOGGER.log(Level.SEVERE, 
+            "Failed to create log file handler: ./log/10.log");
         }
     }
 
@@ -51,7 +53,8 @@ public class TBEngine {
 
         // Setup options
         final Option help = new Option("help", "print this message");
-        final Option version = new Option("version", "print the version information and exit");
+        final Option version = 
+            new Option("version", "print the version information and exit");
         final Option quiet = new Option("quiet", "be extra quiet");
         final Option verbose = new Option("quiet", "be extra verbose");
 
@@ -60,8 +63,9 @@ public class TBEngine {
         try {
             // parse the command line arguments
             final CommandLine line = parser.parse(options, args);
-        }  catch(ParseException exp) {
-            LOGGER.log(Level.SEVERE, "Command line parsing failed: " + exp.getMessage());
+        }  catch (ParseException exp) {
+            LOGGER.log(Level.SEVERE, "Command line parsing failed: " 
+                       + exp.getMessage());
         }
 
         final TBEngine tbEngine = new TBEngine();
