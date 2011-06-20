@@ -69,7 +69,7 @@ public class TBEngine {
         }
 
         final TBEngine tbEngine = new TBEngine();
-        final DataSet dataSet = 
+        final DataSet dataSet =
             tbEngine.getDataSet(DataSetFactory.INTEGER_TYPE);
     }
 
@@ -78,7 +78,7 @@ public class TBEngine {
      * @param dataSetType A string describing the type of dataset required.
      * @return DataSet a referencet to the data set.
      */
-    public final DataSet getDataSet(String dataSetType) {
+    public final DataSet getDataSet(final String dataSetType) {
         return DataSetFactory.getDataSet(dataSetType);
     }
 }
