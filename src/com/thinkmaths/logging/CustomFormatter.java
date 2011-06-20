@@ -162,16 +162,22 @@ public class CustomFormatter extends Formatter {
             }
         }
         // %M
-        arguments[LOGGER] = (record.getSourceMethodName() == null) ?
-         "?" : record.getSourceMethodName();
+        if (record.getSourceMethodName() == null) {
+            arguments[LOGGER] = "?";
+        } else {
+            arguments[LOGGER] = record.getSourceMethodName();
+        }
         // %t
         final Date date = new Date(record.getMillis());
         synchronized (dateFormat) {
             arguments[CustomFormatter.TIMESTAMP] = dateFormat.format(date);
         }
         // %c
-        arguments[CustomFormatter.METHOD] = (record.getSourceClassName() == null) ?
-        "?" : record.getSourceClassName() ;
+        if (record.getSourceClassName() == null) {
+            arguments[CustomFormatter.METHOD] = "?";
+        } else {
+            arguments[CustomFormatter.METHOD] = record.getSourceClassName();
+        }
         // %T
         arguments[THREAD_ID] = Integer.toString(record.getThreadID());
         // %n
