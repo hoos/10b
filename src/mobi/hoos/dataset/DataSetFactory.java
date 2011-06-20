@@ -17,7 +17,7 @@ public final class DataSetFactory {
     private DataSetFactory() {} // empty constructor
 
     /**
-     * A String used by the factory to determine the type of dataset 
+     * A String used by the factory to determine the type of dataset
      * to create and return.
      */
     public static final String INTEGER_TYPE = "INTEGER";
@@ -28,7 +28,7 @@ public final class DataSetFactory {
     private static final Logger LOGGER = Logger.getLogger("DataSetFactory");
 
     /**
-     * Returns the dataset type determined by the datasetType argument. 
+     * Returns the dataset type determined by the datasetType argument.
      * @param dataSetType the integer describing the data set type.
      * @return dataset a reference to the newly created dataset.
      */
