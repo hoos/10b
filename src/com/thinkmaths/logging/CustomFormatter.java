@@ -92,7 +92,17 @@ public class CustomFormatter extends Formatter {
     private static final int LOGGER_NAME = 6;
 
     /**
-     * The expected integer index position of the log message format argument.
+     * Aviod the checksyle Magic Number warning for 7!.
+     */
+    private static final int SEVEN = 7;
+
+    /**
+     * Aviod the checksyle Magic Number warning for 8!.
+     */
+    private static final int EIGHT = 8;
+
+    /**
+     * The message format.
      */
     private transient final MessageFormat messageFormat;
 
@@ -123,7 +133,7 @@ public class CustomFormatter extends Formatter {
 
     @Override
     public final String format(final LogRecord record) {
-        String[] arguments = new String[8];
+        String[] arguments = new String[EIGHT];
         // %L
         arguments[CustomFormatter.LOGLEVEL] = record.getLevel().toString();
         // %m
@@ -159,9 +169,9 @@ public class CustomFormatter extends Formatter {
         // %C
         final int start = arguments[METHOD].lastIndexOf(".") + 1;
         if (start > 0 && start < arguments[METHOD].length()) {
-            arguments[7] = arguments[METHOD].substring(start);
+            arguments[SEVEN] = arguments[METHOD].substring(start);
         } else {
-            arguments[7] = arguments[METHOD];
+            arguments[SEVEN] = arguments[METHOD];
         }
 
         synchronized (messageFormat) {
