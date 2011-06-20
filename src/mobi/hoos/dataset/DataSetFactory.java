@@ -27,7 +27,7 @@ public final class DataSetFactory {
      */
     private static final Logger LOGGER = Logger.getLogger("DataSetFactory");
 
-    /** 
+    /**
      * Returns the dataset type determined by the datasetType argument. 
      * @param dataSetType the integer describing the data set type.
      * @return dataset a reference to the newly created dataset.
