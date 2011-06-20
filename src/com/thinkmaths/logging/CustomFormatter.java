@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.logging.Formatter;
 import java.util.logging.LogManager;
 import java.util.logging.LogRecord;
+import java.util.Locale;
 
 /**
  * A {@link Formatter} that may be customised in a {@code logging.properties}
@@ -112,10 +113,10 @@ public class CustomFormatter extends Formatter {
     private final transient MessageFormat messageFormat;
 
     /**
-     * The date format used in the log file: yyyy-MM-dd HH:mm:ss zzz.
+     * The date format used in the log file: yyyy-MM-dd HH:mm:ss Z.
      */
     private final transient DateFormat dateFormat =
-        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss zzz");
+        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z", Locale.getDefault());
 
     /**
      * stringBuilder is used to optimise the message formatting.
@@ -185,7 +186,6 @@ public class CustomFormatter extends Formatter {
         // %C
         final int start = arguments[METHOD].lastIndexOf('.') + 1;
         if (start > 0 && start < arguments[METHOD].length()) {
-            //arguments[SEVEN] = arguments[METHOD].substring(start);
             stringBuilder.append(arguments[METHOD]);
             arguments[SEVEN] = stringBuilder.substring(start);
         } else {
