@@ -112,10 +112,10 @@ public class CustomFormatter extends Formatter {
     private final transient MessageFormat messageFormat;
 
     /**
-     * The date format used in the log file: yyyy-MM-dd HH:mm:ss Z.
+     * The date format used in the log file: yyyy-MM-dd HH:mm:ss zzz.
      */
     private final transient DateFormat dateFormat =
-        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
+        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss zzz");
 
     /**
      * stringBuilder is used to optimise the message formatting.
