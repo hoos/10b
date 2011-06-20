@@ -69,12 +69,14 @@ public class TBEngine {
         }
 
         final TBEngine tbEngine = new TBEngine();
-        final DataSet dataSet = tbEngine.getDataSet(DataSetFactory.INTEGER_TYPE);
+        final DataSet dataSet = 
+            tbEngine.getDataSet(DataSetFactory.INTEGER_TYPE);
     }
 
     /**
      * Returns the data set representation of the data.
-     * return DataSet a referencet to the data set.
+     * @param dataSetType A string describing the type of dataset required.
+     * @return DataSet a referencet to the data set.
      */
     public final DataSet getDataSet(String dataSetType) {
         return DataSetFactory.getDataSet(dataSetType);
