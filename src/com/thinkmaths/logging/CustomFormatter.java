@@ -50,15 +50,50 @@ import java.util.logging.LogRecord;
  * @author Hussein Badakhchani
  */
 public class CustomFormatter extends Formatter {
+    /**
+     * The default format of the log file is expressed
+     * as the RE %L: %m [%c.%M %t]
+     */
     private static final String DEFAULT_FORMAT = "%L: %m [%c.%M %t]";
+
+    /**
+     * The expected integer index position of the log level argument position.
+     */
     private static final int LOGLEVEL = 0;
+
+    /**
+     * The expected integer index position of the log message argument position.
+     */
     private static final int MESSAGE = 1;
+
+    /**
+     * The expected integer index position of the logger argument.
+     */
     private static final int LOGGER = 2;
+
+    /**
+     * The expected integer index position of the log timestamp argument.
+     */
     private static final int TIMESTAMP = 3;
+
+    /**
+     * The expected integer index position of the method argument.
+     */
     private static final int METHOD = 4;
+
+    /**
+     * The expected integer index position of the thread ID argument.
+     */
     private static final int THREAD_ID = 5;
+
+    /**
+     * The expected integer index position of the logger name argument.
+     */
     private static final int LOGGER_NAME = 6;
 
+    /**
+     * The expected integer index position of the log message format argument.
+     */
     private final MessageFormat messageFormat;
 
     private final DateFormat dateFormat =
