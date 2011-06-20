@@ -112,6 +112,11 @@ public class CustomFormatter extends Formatter {
     private final transient DateFormat dateFormat =
         new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
 
+    /**
+     * stringBuilder is used to optimise the message formatting.
+     */
+    private transient StringBuilder stringBuilder = new StringBuilder(128);
+
     /** */
     public CustomFormatter() {
         super();
@@ -172,7 +177,9 @@ public class CustomFormatter extends Formatter {
         // %C
         final int start = arguments[METHOD].lastIndexOf(".") + 1;
         if (start > 0 && start < arguments[METHOD].length()) {
-            arguments[SEVEN] = arguments[METHOD].substring(start);
+            //arguments[SEVEN] = arguments[METHOD].substring(start);
+            stringBuilder.append(arguments[METHOD]);
+            arguments[SEVEN] = stringBuilder.substring(start);
         } else {
             arguments[SEVEN] = arguments[METHOD];
         }
