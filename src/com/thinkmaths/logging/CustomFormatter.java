@@ -104,7 +104,7 @@ public class CustomFormatter extends Formatter {
     /**
      * The message format.
      */
-    private transient final MessageFormat messageFormat;
+    private final transient MessageFormat messageFormat;
 
     private transient final DateFormat dateFormat =
         new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
