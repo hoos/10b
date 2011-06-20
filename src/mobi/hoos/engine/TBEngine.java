@@ -45,7 +45,7 @@ public class TBEngine {
      * The main method initiates execution of 10b.
      * @param args A string arry of the command line arguments.
      */
-    public static final void main(String[] args) {
+    public static final void main(final String[] args) {
         LOGGER.log(Level.INFO, "Starting 10b!");
 
         // Create Options object
