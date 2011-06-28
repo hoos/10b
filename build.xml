@@ -241,15 +241,18 @@
   </target>
 
   <!--
-   Run PMD against the source cocde.
+   Run FindBugs against the source cocde.
    -->
   <target name="findbugs"> 
     <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
     <mkdir dir="${test.reports.dir}/findbugs"/>
     <findbugs home="${thirdparty.dir}/findbugs-1.3.9"
+              reportLevel="low"
+              debug="true"
+              effort="max"
               output="xml"
               outputFile="${test.reports.dir}/findbugs/findbugs.xml">
-      <auxClasspath refid="findbugs.classpath"/>
+      <auxClasspath refid="classpath"/>
       <sourcePath path="${src.dir}"/>
       <class location="${dist.dir}/10b/lib/${ant.project.name}.jar"/>
     </findbugs>
