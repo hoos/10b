@@ -62,6 +62,19 @@
   </path>
 
   <!-- 
+   Grinder classpath 
+  -->
+  <path id="grinder.classpath">
+    <path refid="classpath"/>
+    <fileset dir="${thirdparty.dir}/grinder-3.4/lib">
+      <include name="**/*.jar"/>
+    </fileset>
+    <fileset dir="${thirdparty.dir}/GrinderAnalyzer.V2.b13">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>
+
+  <!-- 
    Create the project directory structure.
    -->
   <target name="create" 
@@ -72,13 +85,17 @@
     <mkdir dir="${lib.dir}"/>
     <mkdir dir="${src.dir}"/>
     <mkdir dir="${thirdparty.dir}"/>
-    <!-- The project directories are all part of the final distribution. -->
+    <!-- 
+     The project directories are all part of the final distribution. 
+     -->
     <mkdir dir="${project.dir}"/>
     <mkdir dir="${project.lib.dir}"/>
     <mkdir dir="${project.doc.dir}"/>
-    <!-- The distribution directories house files that are not generated
-         by the build process which will be included in the
-         final distribution. -->
+    <!-- 
+     The distribution directories house files that are not generated
+     by the build process which will be included in the
+     final distribution. 
+     -->
     <mkdir dir="${distribution.dir}"/>
     <mkdir dir="${distribution.dir}/docs"/>
     <mkdir dir="${distribution.dir}/etc"/>
@@ -215,7 +232,27 @@
   </target>
 
   <!--
-   Clean build       
+   Run the Grinder test suite and create the Grinder reports.
+   -->
+  <target name="grinder" depends="test" 
+     description="Runs the Grinder and generates performance reports">
+    <echo>Test run for ${environment}</echo>
+    <mkdir dir="${test.reports.dir}/grinder"/>
+     <java classname="net.grinder.Grinder"
+           classpathref="grinder.classpath" fork="yes">
+         <jvmarg value="-Xmx256m" />
+         <sysproperty key="java.io.tmpdir" value="${dist.dir}/tmp" />
+         <sysproperty key="python.cachedir" value="${dist.dir}/tmp" />
+         <sysproperty key="grinder.logDirectory" value="${dist.dir}/log" />
+         <sysproperty key="grinder.jvm.arguments" 
+             value="-Djava.io.tmpdir=${build.dir}/tmp 
+                    -Dpython.cachedir=./tmp" />
+         <arg file="${dist.dir}/10b/bin/grinder.properties"/>
+     </java>
+  </target>
+
+  <!--
+   Clean build.       
    -->
   <target name="clean" description="  - (clean)s the build">
     <echo message="${ant.project.name}"/>
@@ -224,10 +261,10 @@
   </target>
 
   <!--
-   Build All 
+   Build All. 
    -->
   <target name="buildall" description="  - (build)s (all) the targets in the build"
-          depends="test, checkstyle, pmd">
+          depends="test, checkstyle, pmd, grinder">
   </target>
 
 </project>
