@@ -241,12 +241,12 @@
      <java classname="net.grinder.Grinder"
            classpathref="grinder.classpath" fork="yes">
          <jvmarg value="-Xmx256m" />
-         <sysproperty key="java.io.tmpdir" value="${dist.dir}/tmp" />
-         <sysproperty key="python.cachedir" value="${dist.dir}/tmp" />
-         <sysproperty key="grinder.logDirectory" value="${dist.dir}/log" />
+         <sysproperty key="java.io.tmpdir" value="${build.dir}/tmp" />
+         <sysproperty key="python.cachedir" value="${build.dir}/tmp" />
+         <sysproperty key="grinder.logDirectory" value="${test.reports.dir}/grinder" />
          <sysproperty key="grinder.jvm.arguments" 
              value="-Djava.io.tmpdir=${build.dir}/tmp 
-                    -Dpython.cachedir=./tmp" />
+                    -Dpython.cachedir=${build.dir}/tmp" />
          <arg file="${dist.dir}/10b/bin/grinder.properties"/>
      </java>
   </target>
