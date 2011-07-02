@@ -62,10 +62,19 @@
   </path>
 
   <!-- 
-   PMD classpath 
+   FindBugs classpath 
   -->
   <path id="findbugs.classpath">
     <fileset dir="${thirdparty.dir}/findbugs-1.3.9/lib">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>
+
+  <!-- 
+   Emma classpath 
+  -->
+  <path id="emma.classpath">
+    <fileset dir="${thirdparty.dir}/emma-2.0.5312/lib">
       <include name="**/*.jar"/>
     </fileset>
   </path>
@@ -100,6 +109,7 @@
     <mkdir dir="${project.dir}"/>
     <mkdir dir="${project.lib.dir}"/>
     <mkdir dir="${project.doc.dir}"/>
+
     <!-- 
      The distribution directories house files that are not generated
      by the build process which will be included in the
@@ -259,6 +269,18 @@
   </target> 
 
   <!--
+   Run Emma against the source cocde.
+   -->
+  <target name="emma"> 
+    <taskdef resource="emma_ant.properties" classpathref="emma.classpath"/>
+    <mkdir dir="${test.reports.dir}/emma"/>
+        <emmajava enabled="true" libclasspathref="emma.classpath" 
+                  classname="mobi.hoos.engine.TBEngine" classpathref="classpath">
+        <xml outfile="${test.reports.dir}/emma/report.xml"/>
+        </emmajava>
+  </target> 
+
+  <!--
    Run the Grinder test suite and create the Grinder reports.
    -->
   <target name="grinder" depends="test" 
@@ -291,7 +313,7 @@
    Build All. 
    -->
   <target name="buildall" description="  - (build)s (all) the targets in the build"
-          depends="test, checkstyle, pmd, findbugs, grinder">
+          depends="test, checkstyle, pmd, findbugs, emma, grinder">
   </target>
 
 </project>
