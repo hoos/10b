@@ -36,8 +36,7 @@
   <!--
     Javac compiler options.
   -->
-  <property name="optimize" value="true"/>
-  <property name="debug" value="false"/>
+  <property name="debug" value="true"/>
   <property name="deprecation" value="on"/>
 
   <!-- 
@@ -134,7 +133,7 @@
           description="  - (comp)iles the source code">
     <mkdir dir="${build.classes.dir}"/>
     <javac srcdir="${src.dir}" destdir="${build.classes.dir}"
-           optimize="${optimize}" debug="${debug}"  deprecation="${deprecation}"
+           debug="${debug}" debuglevel="lines. vars, source" deprecation="${deprecation}"
            bootclasspath="${bootclasspath}" classpathref="classpath"
            includeantruntime="false">
     </javac>
