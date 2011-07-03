@@ -80,6 +80,12 @@ public class TBEngine {
                 // automatically generate the help statement
                 HelpFormatter formatter = new HelpFormatter();
                 formatter.printHelp("ant", options);
+            } else if (line.hasOption(version.getArgName())) {
+                LOGGER.log(Level.INFO, "Displaying version message");
+            } else if (line.hasOption(quiet.getArgName())) {
+                LOGGER.log(Level.INFO, "Changing verbosity to quite");
+            } else if (line.hasOption(verbose.getArgName())) {
+                LOGGER.log(Level.INFO, "Changing verbosity to verbose");
             }
 
         }  catch (ParseException exp) {
