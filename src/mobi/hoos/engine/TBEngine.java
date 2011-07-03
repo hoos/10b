@@ -15,6 +15,7 @@ import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.HelpFormatter;
 
 
 /**
@@ -74,10 +75,18 @@ public class TBEngine {
         try {
             // parse the command line arguments
             final CommandLine line = parser.parse(options, args);
+            if(line.hasOption("help")) {
+                LOGGER.log(Level.INFO, "Displaying help message");
+                // automatically generate the help statement
+                HelpFormatter formatter = new HelpFormatter();
+                formatter.printHelp( "ant", options );
+            }
+
         }  catch (ParseException exp) {
             LOGGER.log(Level.SEVERE, "Command line parsing failed: "
                        + exp.getMessage());
         }
+
 
         final TBEngine tbEngine = new TBEngine();
         final DataSet dataSet =
