@@ -2,13 +2,13 @@
 
 <!-- 
   Ant build file for 10b.                                            
-  Auther Hussein Hosseini Badakhchani (Hoos).                                         
--->
+  Author Hussein Hosseini Badakhchani (Hoos).                                         
+ -->
 
 <!--
   The default behaviour of the project build process is to create a 
   distribution package and run the unit tests against it. 
-  -->
+ -->
 <project name="10b" default="test" basedir="."
          xmlns:cs="antlib:com.puppycrawl.tools.checkstyle">
 
@@ -19,7 +19,7 @@
 
   <!--
     Project directories. These properties used by multiple tasks.
-  -->
+   -->
   <property name="build.dir" location="${basedir}/build"/>
   <property name="dist.dir" location="${basedir}/dist"/>
   <property name="etc.dir" location="${basedir}/etc"/>
@@ -34,15 +34,30 @@
   <property name="distribution.dir" location="${etc.dir}/distribution"/>
 
   <!--
+   Thridparty application locations. 
+   -->
+  <property name="checkstyle.reports.dir" location="${test.reports.dir}/checkstyle"/>
+  <property name="pmd.dir" location="${thirdparty.dir}/pmd-4.2.5"/>
+  <property name="pmd.reports.dir" location="${test.reports.dir}/pmd"/>
+  <property name="findbugs.dir" location="${thirdparty.dir}/findbugs-1.3.9"/>
+  <property name="findbugs.reports.dir" location="${test.reports.dir}/findbugs"/>
+  <property name="emma.dir" location="${thirdparty.dir}/emma-2.0.5312"/>
+  <property name="emma.reports.dir" location="${test.reports.dir}/emma"/>
+  <property name="grinder.dir" location="${thirdparty.dir}/grinder-3.4"/>
+  <property name="grinder.reports.dir" location="${test.reports.dir}/grinder"/>
+  <property name="analyser.dir" location="${thirdparty.dir}/GrinderAnalyzer.V2.b13"/>
+  <property name="analyser.reports.dir" location="${test.reports.dir}/grinderReports"/>
+
+  <!--
     Javac compiler options.
-  -->
+   -->
   <property name="debug" value="true"/>
   <property name="deprecation" value="on"/>
 
   <!-- 
    All dependant libraries are located in the project 
    library directory ${lib.dir}.
-  -->
+   -->
   <path id="classpath">
     <fileset dir="${lib.dir}">
       <include name="**/*.jar"/>
@@ -53,40 +68,40 @@
 
   <!-- 
    PMD classpath 
-  -->
+   -->
   <path id="pmd.classpath">
-    <fileset dir="${thirdparty.dir}/pmd-4.2.5">
+    <fileset dir="${pmd.dir}/lib">
       <include name="**/*.jar"/>
     </fileset>
   </path>
 
   <!-- 
    FindBugs classpath 
-  -->
+   -->
   <path id="findbugs.classpath">
-    <fileset dir="${thirdparty.dir}/findbugs-1.3.9/lib">
+    <fileset dir="${findbugs.dir}/lib">
       <include name="**/*.jar"/>
     </fileset>
   </path>
 
   <!-- 
    Emma classpath 
-  -->
+   -->
   <path id="emma.classpath">
-    <fileset dir="${thirdparty.dir}/emma-2.0.5312/lib">
+    <fileset dir="${emma.dir}/lib">
       <include name="**/*.jar"/>
     </fileset>
   </path>
 
   <!-- 
    Grinder classpath 
-  -->
+   -->
   <path id="grinder.classpath">
     <path refid="classpath"/>
-    <fileset dir="${thirdparty.dir}/grinder-3.4/lib">
+    <fileset dir="${grinder.dir}/lib">
       <include name="**/*.jar"/>
     </fileset>
-    <fileset dir="${thirdparty.dir}/GrinderAnalyzer.V2.b13">
+    <fileset dir="${analyser.dir}/lib">
       <include name="**/*.jar"/>
     </fileset>
   </path>
@@ -102,6 +117,7 @@
     <mkdir dir="${lib.dir}"/>
     <mkdir dir="${src.dir}"/>
     <mkdir dir="${thirdparty.dir}"/>
+
     <!-- 
      The project directories are all part of the final distribution. 
      -->
@@ -200,14 +216,14 @@
    -->
   <target name="checkstyle" 
           description="  - runs the (checkstyle) source code analyser">
-      <mkdir dir="${test.reports.dir}/checkstyle"/>
+      <mkdir dir="${checkstyle.reports.dir}"/>
       <cs:checkstyle config="${etc.dir}/sun_checks.xml" failOnViolation="false">
-          <formatter type="xml" tofile="${test.reports.dir}/checkstyle/checkstyle_report.xml"/>
+          <formatter type="xml" tofile="${checkstyle.reports.dir}/checkstyle_report.xml"/>
           <fileset dir="${src.dir}" includes="**/*.java"/>
       </cs:checkstyle>
     <xslt style="${etc.dir}/checkstyle-frames.xsl" 
-          in="${test.reports.dir}/checkstyle/checkstyle_report.xml" 
-          out="${test.reports.dir}/checkstyle/checkstyle_report.html" />
+          in="${checkstyle.reports.dir}/checkstyle_report.xml" 
+          out="${checkstyle.reports.dir}/checkstyle_report.html" />
   </target>
 
   <!--
@@ -218,7 +234,7 @@
     <taskdef name="pmd" 
              classname="net.sourceforge.pmd.ant.PMDTask"
              classpathref="pmd.classpath"/>
-    <mkdir dir="${test.reports.dir}/pmd"/>
+    <mkdir dir="${pmd.reports.dir}"/>
     <pmd targetjdk="1.6">
         <ruleset>basic</ruleset>
         <ruleset>braces</ruleset>
@@ -244,7 +260,7 @@
         <ruleset>typeresolution</ruleset>
         <ruleset>unusedcode</ruleset>
         <formatter type="xml" 
-                   toFile="${test.reports.dir}/pmd/pmd_report.xml" 
+                   toFile="${pmd.reports.dir}/pmd_report.xml" 
                    showSuppressed="true"
                    toConsole="fale"/>
         <fileset dir="${src.dir}">
@@ -259,13 +275,13 @@
   <target name="findbugs"
           description="  - runs the (findbugs) source code analyser"> 
     <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
-    <mkdir dir="${test.reports.dir}/findbugs"/>
-    <findbugs home="${thirdparty.dir}/findbugs-1.3.9"
+    <mkdir dir="${findbugs.reports.dir}"/>
+    <findbugs home="${findbugs.dir}"
               reportLevel="low"
               debug="true"
               effort="max"
               output="xml"
-              outputFile="${test.reports.dir}/findbugs/findbugs.xml">
+              outputFile="${findbugs.reports.dir}/findbugs.xml">
       <auxClasspath refid="classpath"/>
       <sourcePath path="${src.dir}"/>
       <class location="${dist.dir}/10b/lib/${ant.project.name}.jar"/>
@@ -278,10 +294,10 @@
   <target name="emma"
           description="  - runs the (emma) source code analyser"> 
     <taskdef resource="emma_ant.properties" classpathref="emma.classpath"/>
-    <mkdir dir="${test.reports.dir}/emma"/>
+    <mkdir dir="${emma.reports.dir}"/>
         <emmajava enabled="true" libclasspathref="emma.classpath" 
                   classname="mobi.hoos.engine.TBEngine" classpathref="classpath">
-        <xml outfile="${test.reports.dir}/emma/report.xml"/>
+        <xml outfile="${emma.reports.dir}/report.xml"/>
         </emmajava>
   </target> 
 
@@ -291,13 +307,13 @@
   <target name="grinder" depends="test" 
      description="  - runs the Grinder and generates performance reports">
     <echo>Test run for ${environment}</echo>
-    <mkdir dir="${test.reports.dir}/grinder"/>
+    <mkdir dir="${grinder.reports.dir}"/>
      <java classname="net.grinder.Grinder"
            classpathref="grinder.classpath" fork="yes">
          <jvmarg value="-Xmx256m" />
          <sysproperty key="java.io.tmpdir" value="${build.dir}/tmp" />
          <sysproperty key="python.cachedir" value="${build.dir}/tmp" />
-         <sysproperty key="grinder.logDirectory" value="${test.reports.dir}/grinder" />
+         <sysproperty key="grinder.logDirectory" value="${grinder.reports.dir}" />
          <sysproperty key="grinder.jvm.arguments" 
              value="-Djava.io.tmpdir=${build.dir}/tmp 
                     -Dpython.cachedir=${build.dir}/tmp" />
@@ -316,17 +332,16 @@
       -->
      <property environment="env"/>
      <property name="env.COMPUTERNAME" value="${env.HOSTNAME}"/>
-     <property name="analyser.dir" location="${basedir}/thirdparty/GrinderAnalyzer.V2.b13"/>
      <java classname="org.python.util.jython"
            classpathref="grinder.classpath" fork="yes" dir="${analyser.dir}">
        <jvmarg value="-Xmx256m" />
        <sysproperty key="java.io.tmpdir" value="${build.dir}/tmp" />
        <sysproperty key="python.cachedir" value="${build.dir}/tmp" />
        <arg line="${analyser.dir}/analyzer.py 
-                  ${test.reports.dir}/grinder/data_${env.COMPUTERNAME}-0.log
-                  ${test.reports.dir}/grinder/out_${env.COMPUTERNAME}-0.log"/>
+                  ${grinder.reports.dir}/data_${env.COMPUTERNAME}-0.log
+                  ${grinder.reports.dir}/out_${env.COMPUTERNAME}-0.log"/>
      </java>
-     <move file="${analyser.dir}/grinderReport" toFile="${test.reports.dir}/grinder/grinderReport"/>
+     <move file="${analyser.dir}/grinderReport" toFile="${analyser.reports.dir}"/>
   </target>
 
   <!--
