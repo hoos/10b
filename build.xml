@@ -18,7 +18,7 @@
 
 
   <!--
-    Project directories.
+    Project directories. These properties used by multiple tasks.
   -->
   <property name="build.dir" location="${basedir}/build"/>
   <property name="dist.dir" location="${basedir}/dist"/>
@@ -123,7 +123,10 @@
    Create a time stamp for the build.
    -->
   <target name="init">
-    <tstamp/>
+    <tstamp>
+      <format property="BUILD_TIME" pattern="ssmmhh-dd-MM-yyyy"/>
+    </tstamp>
+    <echo message="Building ${ant.project.name} ${BUILD_TIME}"/>
   </target>
 
   <!-- 
@@ -196,7 +199,7 @@
    Run checkstyle against the source cocde.
    -->
   <target name="checkstyle" 
-          description="  - runs (checkstyle) against the source code">
+          description="  - runs the (checkstyle) source code analyser">
       <mkdir dir="${test.reports.dir}/checkstyle"/>
       <cs:checkstyle config="${etc.dir}/sun_checks.xml" failOnViolation="false">
           <formatter type="xml" tofile="${test.reports.dir}/checkstyle/checkstyle_report.xml"/>
@@ -210,7 +213,8 @@
   <!--
    Run PMD against the source cocde.
    -->
-  <target name="pmd"> 
+  <target name="pmd" 
+          description="  - runs the (pmd) source code analyser"> 
     <taskdef name="pmd" 
              classname="net.sourceforge.pmd.ant.PMDTask"
              classpathref="pmd.classpath"/>
@@ -252,7 +256,8 @@
   <!--
    Run FindBugs against the source cocde.
    -->
-  <target name="findbugs"> 
+  <target name="findbugs"
+          description="  - runs the (findbugs) source code analyser"> 
     <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
     <mkdir dir="${test.reports.dir}/findbugs"/>
     <findbugs home="${thirdparty.dir}/findbugs-1.3.9"
@@ -270,7 +275,8 @@
   <!--
    Run Emma against the source cocde.
    -->
-  <target name="emma"> 
+  <target name="emma"
+          description="  - runs the (emma) source code analyser"> 
     <taskdef resource="emma_ant.properties" classpathref="emma.classpath"/>
     <mkdir dir="${test.reports.dir}/emma"/>
         <emmajava enabled="true" libclasspathref="emma.classpath" 
@@ -283,7 +289,7 @@
    Run the Grinder test suite and create the Grinder reports.
    -->
   <target name="grinder" depends="test" 
-     description="Runs the Grinder and generates performance reports">
+     description="  - runs the Grinder and generates performance reports">
     <echo>Test run for ${environment}</echo>
     <mkdir dir="${test.reports.dir}/grinder"/>
      <java classname="net.grinder.Grinder"
@@ -300,10 +306,33 @@
   </target>
 
   <!--
+   Run the Grinder analyser to generate charts from Grinder reports.
+   -->
+  <target name="analyse" depends="grinder" 
+     description="  - (analyse)s the Grinder reports generating charts.">
+     <!-- 
+      The hostname is used to find the Grinder data and out logs.
+      COMPUTERNAME is also set so this works on WINDOWS OS.
+      -->
+     <property environment="env"/>
+     <property name="env.COMPUTERNAME" value="${env.HOSTNAME}"/>
+     <property name="analyser.dir" location="${basedir}/thirdparty/GrinderAnalyzer.V2.b13"/>
+     <java classname="org.python.util.jython"
+           classpathref="grinder.classpath" fork="yes" dir="${analyser.dir}">
+       <jvmarg value="-Xmx256m" />
+       <sysproperty key="java.io.tmpdir" value="${build.dir}/tmp" />
+       <sysproperty key="python.cachedir" value="${build.dir}/tmp" />
+       <arg line="${analyser.dir}/analyzer.py 
+                  ${test.reports.dir}/grinder/data_${env.COMPUTERNAME}-0.log
+                  ${test.reports.dir}/grinder/out_${env.COMPUTERNAME}-0.log"/>
+     </java>
+     <move file="${analyser.dir}/grinderReport" toFile="${test.reports.dir}/grinder/grinderReport"/>
+  </target>
+
+  <!--
    Clean build.       
    -->
   <target name="clean" description="  - (clean)s the build">
-    <echo message="${ant.project.name}"/>
     <delete dir="${build.dir}"/>
     <delete dir="${dist.dir}"/>
   </target>
@@ -312,7 +341,7 @@
    Build All. 
    -->
   <target name="buildall" description="  - (build)s (all) the targets in the build"
-          depends="test, checkstyle, pmd, findbugs, emma, grinder">
+          depends="test, checkstyle, pmd, findbugs, emma, grinder, analyse">
   </target>
 
 </project>
