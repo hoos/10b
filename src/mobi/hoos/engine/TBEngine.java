@@ -75,11 +75,11 @@ public class TBEngine {
         try {
             // parse the command line arguments
             final CommandLine line = parser.parse(options, args);
-            if(line.hasOption("help")) {
+            if (line.hasOption(help.getArgName())) {
                 LOGGER.log(Level.INFO, "Displaying help message");
                 // automatically generate the help statement
                 HelpFormatter formatter = new HelpFormatter();
-                formatter.printHelp( "ant", options );
+                formatter.printHelp("ant", options);
             }
 
         }  catch (ParseException exp) {
