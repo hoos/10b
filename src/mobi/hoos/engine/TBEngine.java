@@ -1,6 +1,7 @@
 package mobi.hoos.engine;
 
-//import mobi.hoos.resultset.ResultSet;
+import mobi.hoos.resultset.ResultSet;
+import mobi.hoos.resultset.IntegerResultSet;
 import mobi.hoos.dataset.DataSetFactory;
 import mobi.hoos.dataset.DataSet;
 
@@ -27,7 +28,7 @@ public class TBEngine {
     /**
      * The object which contains the results of the analysis.
      */
-    //private static ResultSet resultset = null;
+    private static ResultSet resultset = null;
 
     /**
      * The log file handler.
@@ -100,6 +101,7 @@ public class TBEngine {
         final TBEngine tbEngine = new TBEngine();
         final DataSet dataSet =
             tbEngine.getDataSet(DataSetFactory.INTEGER_TYPE);
+        resultset = new IntegerResultSet();
     }
 
     /**
