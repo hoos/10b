@@ -9,8 +9,7 @@
   The default behaviour of the project build process is to create a 
   distribution package and run the unit tests against it. 
  -->
-<project name="10b" default="test" basedir="."
-         xmlns:cs="antlib:com.puppycrawl.tools.checkstyle">
+<project name="10b" default="test" basedir=".">
 
   <description>
     10b (pronounced Twobit) is an algorythmic trading application.
@@ -36,6 +35,7 @@
   <!--
    Thridparty application locations. 
    -->
+  <property name="ant.dir" location="${thirdparty.dir}/apache-ant-1.8.2"/>
   <property name="checkstyle.reports.dir" location="${test.reports.dir}/checkstyle"/>
   <property name="pmd.dir" location="${thirdparty.dir}/pmd-4.2.5"/>
   <property name="pmd.reports.dir" location="${test.reports.dir}/pmd"/>
@@ -47,6 +47,8 @@
   <property name="grinder.reports.dir" location="${test.reports.dir}/grinder"/>
   <property name="analyser.dir" location="${thirdparty.dir}/GrinderAnalyzer.V2.b13"/>
   <property name="analyser.reports.dir" location="${test.reports.dir}/grinderReports"/>
+  <property name="junit.reports.dir" location="${thirdparty.dir}/junit"/>
+
 
   <!--
     Javac compiler options.
@@ -196,13 +198,13 @@
    -->
   <target name="test" depends="dist" 
           description="  - (test)s the distribution">
-      <mkdir dir="${test.reports.dir}/junit"/>
+      <mkdir dir="${junit.reports.dir}"/>
       <junit printsummary="yes" haltonfailure="yes">
        <classpath>
          <path refid="classpath"/> 
        </classpath>
         <formatter type="xml"/>
-        <batchtest fork="no" todir="${test.reports.dir}/junit">
+        <batchtest fork="no" todir="${junit.reports.dir}">
           <fileset dir="${build.classes.dir}">
             <include name="**/*Test*.class"/>
           </fileset>
@@ -217,10 +219,12 @@
   <target name="checkstyle" 
           description="  - runs the (checkstyle) source code analyser">
       <mkdir dir="${checkstyle.reports.dir}"/>
-      <cs:checkstyle config="${etc.dir}/sun_checks.xml" failOnViolation="false">
+      <taskdef resource="checkstyletask.properties"
+               classpath="${ant.dir}/lib/checkstyle-5.4-all.jar"/>
+      <checkstyle config="${etc.dir}/sun_checks.xml" failOnViolation="false">
           <formatter type="xml" tofile="${checkstyle.reports.dir}/checkstyle_report.xml"/>
           <fileset dir="${src.dir}" includes="**/*.java"/>
-      </cs:checkstyle>
+      </checkstyle>
     <xslt style="${etc.dir}/checkstyle-frames.xsl" 
           in="${checkstyle.reports.dir}/checkstyle_report.xml" 
           out="${checkstyle.reports.dir}/checkstyle_report.html" />

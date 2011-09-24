@@ -15,6 +15,6 @@ APPLICATION_HOME=$BIN_DIR/..
 # Source the setEnv.sh script to set up the common environment.
 . $BIN_DIR/setEnv.sh
 
-JAVA_OPTS="-Djava.util.logging.config.file=$APPLICATION_HOME/etc/logging.properties"
+JAVA_OPTS="-DAPPLICATION_HOME=$APPLICATION_HOME -Djava.util.logging.config.file=$APPLICATION_HOME/etc/logging.properties"
 
 $JAVA_HOME/bin/java $JAVA_OPTS -jar $APPLICATION_HOME/lib/10b.jar $*
