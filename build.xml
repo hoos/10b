@@ -47,7 +47,7 @@
   <property name="grinder.reports.dir" location="${test.reports.dir}/grinder"/>
   <property name="analyser.dir" location="${thirdparty.dir}/GrinderAnalyzer.V2.b13"/>
   <property name="analyser.reports.dir" location="${test.reports.dir}/grinderReports"/>
-  <property name="junit.reports.dir" location="${thirdparty.dir}/junit"/>
+  <property name="junit.reports.dir" location="${test.reports.dir}/junit"/>
 
 
   <!--
