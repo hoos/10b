@@ -27,7 +27,7 @@ public class TBEngine {
     /**
      * The object which contains the results of the analysis.
      */
-    private static ResultSet resultset = null;
+    //private static ResultSet resultset = null;
 
     /**
      * The log file handler.
@@ -42,7 +42,7 @@ public class TBEngine {
     // Initialise our static variables.
     static {
         String appdir = System.getProperty("APPLICATION_HOME");
-        if(appdir == null) {
+        if (appdir == null) {
             appdir = "/tmp";
         }
         final String logfile = appdir + "/log/10b.log";
