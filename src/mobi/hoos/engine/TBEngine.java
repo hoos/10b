@@ -1,6 +1,6 @@
 package mobi.hoos.engine;
 
-import mobi.hoos.resultset.ResultSet;
+//import mobi.hoos.resultset.ResultSet;
 import mobi.hoos.dataset.DataSetFactory;
 import mobi.hoos.dataset.DataSet;
 
@@ -81,7 +81,7 @@ public class TBEngine {
             if (line.hasOption(help.getArgName())) {
                 LOGGER.log(Level.INFO, "Displaying help message");
                 // automatically generate the help statement
-                HelpFormatter formatter = new HelpFormatter();
+                final HelpFormatter formatter = new HelpFormatter();
                 formatter.printHelp("ant", options);
             } else if (line.hasOption(version.getArgName())) {
                 LOGGER.log(Level.INFO, "Displaying version message");
