@@ -41,15 +41,15 @@ public class TBEngine {
 
     // Initialise our static variables.
     static {
-        final String logfile =
-            "/home/husseinb/Projects/10b/dist/10b/log/10b.log";
+        String appdir = System.getProperty("APPLICATION_HOME");
+        final String logfile = appdir + "/log/10b.log";
         try {
             TBEngine.fileHandler = new FileHandler(logfile);
             LOGGER.addHandler(fileHandler);
             LOGGER.setUseParentHandlers(false);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE,
-            "Failed to create log file handler: ./log/10.log");
+            "Failed to create log file handler: " + appdir + "/log/10.log");
         }
     }
 

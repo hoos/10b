@@ -6,7 +6,7 @@
 
 unset ANT_HOME
 
-export ANT_HOME=/home/hoos/sandbox/rjmglib/thirdparty/apache-ant-1.8.2
+export ANT_HOME=$BIN_DIR/thirdparty/apache-ant-1.8.2
 
 export JAVA_HOME=/usr/java/latest
 
