@@ -43,10 +43,12 @@ public class TBEngine {
     // Initialise our static variables.
     static {
         String appdir = System.getProperty("APPLICATION_HOME");
+        String logfile = "";
         if (appdir == null) {
-            appdir = "/tmp";
+            logfile = System.getProperty("java.io.tmpdir") + "/10b.log";
+        } else {
+            logfile = appdir + "/log/10b.log";
         }
-        final String logfile = appdir + "/log/10b.log";
         try {
             TBEngine.fileHandler = new FileHandler(logfile);
             LOGGER.addHandler(fileHandler);
