@@ -1,5 +1,6 @@
 package mobi.hoos.engine;
 
+import mobi.hoos.engine.CMDLineParser;
 import mobi.hoos.resultset.ResultSet;
 import mobi.hoos.resultset.IntegerResultSet;
 import mobi.hoos.dataset.DataSetFactory;
@@ -9,15 +10,6 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.logging.FileHandler;
 import java.io.IOException;
-
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.GnuParser;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.HelpFormatter;
-
 
 /**
  * The TBEngine class orchestrates all data analysis activities.
@@ -66,44 +58,7 @@ public class TBEngine {
     public static final void main(final String[] args) {
         LOGGER.log(Level.INFO, "Starting 10b!");
 
-        // Create Options object
-        final Options options = new Options();
-
-        // Setup options
-        final Option help = new Option("help", "print this message");
-        options.addOption(help);
-        final Option version =
-            new Option("version", "print the version information and exit");
-        options.addOption(version);
-        final Option quiet = new Option("quiet", "be extra quiet");
-        options.addOption(quiet);
-        final Option verbose = new Option("verbose", "be extra verbose");
-        options.addOption(verbose);
-
-        // Create the command line parser
-        final CommandLineParser parser = new GnuParser();
-        try {
-            // parse the command line arguments
-            final CommandLine line = parser.parse(options, args);
-            if (line.hasOption(help.getOpt())) {
-                LOGGER.log(Level.INFO, "Displaying help message");
-                // automatically generate the help statement
-                final HelpFormatter formatter = new HelpFormatter();
-                formatter.printHelp("10b", options);
-            } else if (line.hasOption(version.getOpt())) {
-                LOGGER.log(Level.INFO, "Displaying version message");
-            } else if (line.hasOption(quiet.getOpt())) {
-                LOGGER.log(Level.INFO, "Changing verbosity to quite");
-            } else if (line.hasOption(verbose.getOpt())) {
-                LOGGER.log(Level.INFO, "Changing verbosity to verbose");
-            }
-
-        }  catch (ParseException exp) {
-            LOGGER.log(Level.SEVERE, "Command line parsing failed: "
-                       + exp.getMessage());
-        }
-
-
+        final CMDLineParser cmdLineParser = new CMDLineParser(args);
         final TBEngine tbEngine = new TBEngine();
         final DataSet dataSet =
             tbEngine.getDataSet(DataSetFactory.INTEGER_TYPE);
