@@ -71,26 +71,30 @@ public class TBEngine {
 
         // Setup options
         final Option help = new Option("help", "print this message");
+        options.addOption(help);
         final Option version =
             new Option("version", "print the version information and exit");
+        options.addOption(version);
         final Option quiet = new Option("quiet", "be extra quiet");
-        final Option verbose = new Option("quiet", "be extra verbose");
+        options.addOption(quiet);
+        final Option verbose = new Option("verbose", "be extra verbose");
+        options.addOption(verbose);
 
         // Create the command line parser
         final CommandLineParser parser = new GnuParser();
         try {
             // parse the command line arguments
             final CommandLine line = parser.parse(options, args);
-            if (line.hasOption(help.getArgName())) {
+            if (line.hasOption(help.getOpt())) {
                 LOGGER.log(Level.INFO, "Displaying help message");
                 // automatically generate the help statement
                 final HelpFormatter formatter = new HelpFormatter();
-                formatter.printHelp("ant", options);
-            } else if (line.hasOption(version.getArgName())) {
+                formatter.printHelp("10b", options);
+            } else if (line.hasOption(version.getOpt())) {
                 LOGGER.log(Level.INFO, "Displaying version message");
-            } else if (line.hasOption(quiet.getArgName())) {
+            } else if (line.hasOption(quiet.getOpt())) {
                 LOGGER.log(Level.INFO, "Changing verbosity to quite");
-            } else if (line.hasOption(verbose.getArgName())) {
+            } else if (line.hasOption(verbose.getOpt())) {
                 LOGGER.log(Level.INFO, "Changing verbosity to verbose");
             }
 
