@@ -58,22 +58,17 @@ public class CMDLineParser {
                 LOGGER.log(Level.FINEST, "No command line arguments");
                 throw new MissingOptionException("No command line aruguments found!");
             }
- 
-        } catch (UnrecognizedOptionException oe) {
-        
+        } catch (UnrecognizedOptionException ue) {
+             LOGGER.log(Level.SEVERE, ue.getMessage());
         } catch (MissingOptionException me) {
              LOGGER.log(Level.SEVERE, me.getMessage());
              formatter.printHelp("10b", options);
-        } catch (MissingArgumentException me) {
-
+        } catch (MissingArgumentException mae) {
+             LOGGER.log(Level.SEVERE, mae.getMessage());
         } catch (ParseException pe) {
              LOGGER.log(Level.SEVERE, "Command line parsing failed: "
                  + pe.getMessage());
              formatter.printHelp("10b", options);
-             
         }
-
-
-
     }
 }
