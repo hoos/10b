@@ -9,6 +9,9 @@ import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.MissingArgumentException;
+import org.apache.commons.cli.MissingOptionException;
+import org.apache.commons.cli.UnrecognizedOptionException;
 import org.apache.commons.cli.HelpFormatter;
 
 public class CMDLineParser {
@@ -37,13 +40,13 @@ public class CMDLineParser {
 
         // Create the command line parser
         final CommandLineParser parser = new GnuParser();
+        final HelpFormatter formatter = new HelpFormatter();
         try {
             // parse the command line arguments
             final CommandLine line = parser.parse(options, args);
             if (line.hasOption(help.getOpt())) {
                 LOGGER.log(Level.FINEST, "Displaying help message");
                 // automatically generate the help statement
-                final HelpFormatter formatter = new HelpFormatter();
                 formatter.printHelp("10b", options);
             } else if (line.hasOption(version.getOpt())) {
                 LOGGER.log(Level.FINEST, "Displaying version message");
@@ -53,12 +56,24 @@ public class CMDLineParser {
                 LOGGER.log(Level.FINEST, "Changing verbosity to verbose");
             } else {
                 LOGGER.log(Level.FINEST, "No command line arguments");
+                throw new MissingOptionException("No command line aruguments found!");
             }
  
-        }  catch (ParseException exp) {
-            LOGGER.log(Level.SEVERE, "Command line parsing failed: "
-                       + exp.getMessage());
+        } catch (UnrecognizedOptionException oe) {
+        
+        } catch (MissingOptionException me) {
+             LOGGER.log(Level.SEVERE, me.getMessage());
+             formatter.printHelp("10b", options);
+        } catch (MissingArgumentException me) {
+
+        } catch (ParseException pe) {
+             LOGGER.log(Level.SEVERE, "Command line parsing failed: "
+                 + pe.getMessage());
+             formatter.printHelp("10b", options);
+             
         }
+
+
 
     }
 }
