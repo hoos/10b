@@ -26,7 +26,6 @@ public class CMDLineParser {
 
     /**
      * The CMDLineParser class handles 10b's command line processing.
-     * @author Hussein Badakhchani
      * @param args A string arry of the command line arguments.
      */
     public CMDLineParser(final String[] args) {
@@ -46,7 +45,8 @@ public class CMDLineParser {
         final Options options = new Options();
 
         // Setup options
-        final Option help = new Option("help", messages.getString("display_help"));
+        final Option help = new Option("help", 
+            messages.getString("display_help"));
         options.addOption(help);
         final Option version =
             new Option("version", "print the version information and exit");
@@ -67,14 +67,19 @@ public class CMDLineParser {
                 // automatically generate the help statement
                 formatter.printHelp("10b", options);
             } else if (line.hasOption(version.getOpt())) {
-                LOGGER.log(Level.FINEST, messages.getString("display_version"));
+                LOGGER.log(Level.FINEST, 
+                    messages.getString("display_version"));
             } else if (line.hasOption(quiet.getOpt())) {
-                LOGGER.log(Level.FINEST, messages.getString("increase_verbosity"));
+                LOGGER.log(Level.FINEST, 
+                    messages.getString("increase_verbosity"));
             } else if (line.hasOption(verbose.getOpt())) {
-                LOGGER.log(Level.FINEST, messages.getString("decrease_verbosity"));
+                LOGGER.log(Level.FINEST, 
+                    messages.getString("decrease_verbosity"));
             } else {
-                LOGGER.log(Level.FINEST, messages.getString("no_cmd_line_arguments"));
-                throw new MissingOptionException("No command line aruguments found!");
+                LOGGER.log(Level.FINEST, 
+                    messages.getString("no_cmd_line_arguments"));
+                throw new MissingOptionException(
+                    messages.getString("no_cmd_line_arguments"));
             }
         } catch (UnrecognizedOptionException ue) {
              LOGGER.log(Level.SEVERE, ue.getMessage());
