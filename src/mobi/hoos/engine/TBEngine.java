@@ -46,7 +46,7 @@ public class TBEngine {
             LOGGER.addHandler(fileHandler);
             LOGGER.setUseParentHandlers(false);
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE,
+            LOGGER.log(Level.INFO,
             "Failed to create log file handler: " + appdir + "/log/10.log");
         }
     }
