@@ -68,7 +68,7 @@ public class CMDLineParser {
             } else if (line.hasOption(verbose.getOpt())) {
                 LOGGER.log(Level.FINEST, messages.getString("decrease_verbosity"));
             } else {
-                LOGGER.log(Level.FINEST, "No command line arguments");
+                LOGGER.log(Level.FINEST, messages.getString("no_cmd_line_arguments"));
                 throw new MissingOptionException("No command line aruguments found!");
             }
         } catch (UnrecognizedOptionException ue) {
