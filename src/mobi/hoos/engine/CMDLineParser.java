@@ -24,6 +24,10 @@ public class CMDLineParser {
      */
     private static final Logger LOGGER = Logger.getLogger("CMDLineParser");
 
+    /**
+     * The CMDLineParser class handles 10b's command line processing.
+     * @author Hussein Badakhchani
+     */
     public CMDLineParser(final String[] args) {
 
         final String language = System.getProperty("user.language");
