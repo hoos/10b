@@ -2,6 +2,8 @@ package mobi.hoos.engine;
 
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.ResourceBundle;
+import java.util.Locale;
 
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.CommandLine;
@@ -24,11 +26,22 @@ public class CMDLineParser {
 
     public CMDLineParser(final String[] args) {
 
-        // Create Options object
+        final String language = System.getProperty("user.language");
+        final String region = System.getProperty("user.country");
+
+        LOGGER.log(Level.FINEST, 
+            "Creating Locale: language=" + language  + " region=" + region);
+
+        final Locale locale = new Locale(language, region);
+
+
+        ResourceBundle messages = ResourceBundle.getBundle("messages", locale);
+        
+        // Create Options collection
         final Options options = new Options();
 
         // Setup options
-        final Option help = new Option("help", "print this message");
+        final Option help = new Option("help", messages.getString("display_help"));
         options.addOption(help);
         final Option version =
             new Option("version", "print the version information and exit");
@@ -45,15 +58,15 @@ public class CMDLineParser {
             // parse the command line arguments
             final CommandLine line = parser.parse(options, args);
             if (line.hasOption(help.getOpt())) {
-                LOGGER.log(Level.FINEST, "Displaying help message");
+                LOGGER.log(Level.FINEST, messages.getString("display_help"));
                 // automatically generate the help statement
                 formatter.printHelp("10b", options);
             } else if (line.hasOption(version.getOpt())) {
-                LOGGER.log(Level.FINEST, "Displaying version message");
+                LOGGER.log(Level.FINEST, messages.getString("display_version"));
             } else if (line.hasOption(quiet.getOpt())) {
-                LOGGER.log(Level.FINEST, "Changing verbosity to quite");
+                LOGGER.log(Level.FINEST, messages.getString("increase_verbosity"));
             } else if (line.hasOption(verbose.getOpt())) {
-                LOGGER.log(Level.FINEST, "Changing verbosity to verbose");
+                LOGGER.log(Level.FINEST, messages.getString("decrease_verbosity"));
             } else {
                 LOGGER.log(Level.FINEST, "No command line arguments");
                 throw new MissingOptionException("No command line aruguments found!");

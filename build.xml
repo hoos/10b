@@ -181,16 +181,15 @@
     <chmod file="${project.dir}/bin/setEnv.sh" perm="ugo+rx"/>
     <chmod dir="${thirdparty.dir}/apache-ant-1.8.2/bin" 
            includes="*" perm="ug+rx"/>
+    <copy file="${distribution.dir}/etc/messages.properties" todir="${build.classes.dir}"/>
     <jar basedir="${build.classes.dir}"
          jarfile="${project.lib.dir}/${ant.project.name}.jar"
          manifest="${etc.dir}/MANIFEST.MF"
-         excludes="**/*Test.class">
-    </jar>
+         excludes="**/*Test.class"/>
     <jar basedir="${build.classes.dir}"
          jarfile="${project.lib.dir}/${ant.project.name}-test.jar"
          manifest="${etc.dir}/MANIFEST.MF"
-         includes="**/*Test.class">
-    </jar>
+         includes="**/*Test.class"/>
   </target>
 
   <!-- 

@@ -62,7 +62,7 @@ public class TBEngine {
         final TBEngine tbEngine = new TBEngine();
         final DataSet dataSet =
             tbEngine.getDataSet(DataSetFactory.INTEGER_TYPE);
-        resultset = new IntegerResultSet();
+        TBEngine.resultset = new IntegerResultSet();
     }
 
     /**
