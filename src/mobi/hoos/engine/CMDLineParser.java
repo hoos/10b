@@ -40,7 +40,7 @@ public class CMDLineParser {
 
 
         ResourceBundle messages = ResourceBundle.getBundle("messages", locale);
-        
+
         // Create Options collection
         final Options options = new Options();
 
@@ -67,16 +67,16 @@ public class CMDLineParser {
                 // automatically generate the help statement
                 formatter.printHelp("10b", options);
             } else if (line.hasOption(version.getOpt())) {
-                LOGGER.log(Level.FINEST, 
+                LOGGER.log(Level.FINEST,
                     messages.getString("display_version"));
             } else if (line.hasOption(quiet.getOpt())) {
-                LOGGER.log(Level.FINEST, 
+                LOGGER.log(Level.FINEST,
                     messages.getString("increase_verbosity"));
             } else if (line.hasOption(verbose.getOpt())) {
-                LOGGER.log(Level.FINEST, 
+                LOGGER.log(Level.FINEST,
                     messages.getString("decrease_verbosity"));
             } else {
-                LOGGER.log(Level.FINEST, 
+                LOGGER.log(Level.FINEST,
                     messages.getString("no_cmd_line_arguments"));
                 throw new MissingOptionException(
                     messages.getString("no_cmd_line_arguments"));
