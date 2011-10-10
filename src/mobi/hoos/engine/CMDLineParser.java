@@ -27,6 +27,7 @@ public class CMDLineParser {
     /**
      * The CMDLineParser class handles 10b's command line processing.
      * @author Hussein Badakhchani
+     * @param args A string arry of the command line arguments.
      */
     public CMDLineParser(final String[] args) {
 
