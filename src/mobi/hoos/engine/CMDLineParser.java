@@ -16,6 +16,10 @@ import org.apache.commons.cli.MissingOptionException;
 import org.apache.commons.cli.UnrecognizedOptionException;
 import org.apache.commons.cli.HelpFormatter;
 
+/**
+ * The CMDLineParser class handles 10b's command line processing.
+ * @author Hussein Badakhchani
+ */
 public class CMDLineParser {
 
     /**
@@ -25,7 +29,7 @@ public class CMDLineParser {
     private static final Logger LOGGER = Logger.getLogger("CMDLineParser");
 
     /**
-     * The CMDLineParser class handles 10b's command line processing.
+     * The CMDLineParser constructor uses the main methods arguments.
      * @param args A string arry of the command line arguments.
      */
     public CMDLineParser(final String[] args) {
