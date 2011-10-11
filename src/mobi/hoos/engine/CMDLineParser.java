@@ -89,7 +89,7 @@ public class CMDLineParser {
         } catch (MissingArgumentException mae) {
              LOGGER.log(Level.SEVERE, mae.getMessage());
         } catch (ParseException pe) {
-             LOGGER.log(Level.WARN, "Command line parsing failed: "
+             LOGGER.log(Level.CONFIG, "Command line parsing failed: "
                  + pe.getMessage());
              formatter.printHelp("10b", options);
         }
