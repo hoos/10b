@@ -38,8 +38,8 @@ public class CMDLineParser {
 
         final Locale locale = new Locale(language, region);
 
-
-        ResourceBundle messages = ResourceBundle.getBundle("messages", locale);
+        final ResourceBundle messages = 
+            ResourceBundle.getBundle("messages", locale);
 
         // Create Options collection
         final Options options = new Options();
