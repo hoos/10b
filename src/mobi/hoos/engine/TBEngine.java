@@ -1,6 +1,5 @@
 package mobi.hoos.engine;
 
-import mobi.hoos.engine.CMDLineParser;
 import mobi.hoos.resultset.ResultSet;
 import mobi.hoos.resultset.IntegerResultSet;
 import mobi.hoos.dataset.DataSetFactory;
@@ -59,7 +58,7 @@ public class TBEngine {
         LOGGER.log(Level.INFO, "Starting 10b!");
 
         final CMDLineParser cmdLineParser = new CMDLineParser(args);
-        final TBEngine tbEngine = new TBEngine();
+        //final TBEngine tbEngine = new TBEngine();
         final DataSet dataSet =
             tbEngine.getDataSet(DataSetFactory.INTEGER_TYPE);
         TBEngine.resultset = new IntegerResultSet();
