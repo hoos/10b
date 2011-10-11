@@ -84,7 +84,7 @@ public class CMDLineParser {
         } catch (UnrecognizedOptionException ue) {
              LOGGER.log(Level.SEVERE, ue.getMessage());
         } catch (MissingOptionException me) {
-             LOGGER.log(Level.SEVERE, me.getMessage());
+             LOGGER.log(Level.CONFIG, me.getMessage());
              formatter.printHelp("10b", options);
         } catch (MissingArgumentException mae) {
              LOGGER.log(Level.SEVERE, mae.getMessage());
